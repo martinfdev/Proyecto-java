@@ -5,19 +5,10 @@
  */
 package estructuras;
 
-
 /**
  *
  * @author pedro
  */
-public class Init {
-    
-    public Init(){
-     
-    }
-    
-    public void test(){
-
-    }
+public class Report {
     
 }
