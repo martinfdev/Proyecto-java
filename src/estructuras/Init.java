@@ -5,6 +5,8 @@
  */
 package estructuras;
 
+import beans.Cliente;
+
 
 /**
  *
@@ -13,11 +15,15 @@ package estructuras;
 public class Init {
     
     public Init(){
-     
+        test();
     }
     
+    //metod para probar las estructura miestras se van implementando
     public void test(){
-
+        HashTable<Cliente> htclientes = new HashTable<>(37);
+        htclientes.insert(new Cliente(257415114, "", "", "", "", 'M'), 257415114);
+        System.out.println(htclientes.search(257415114).getDpi());
+        System.out.println("-------");
     }
     
 }

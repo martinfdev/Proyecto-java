@@ -9,17 +9,30 @@ public class Cliente extends Persona {
     public Cliente() {
     }
 
-    public Cliente(String dpi, String nombres, String apellidos, String telefono, String direccion, char genero) {
+    /**
+     *
+     * @param dpi
+     * @param nombres
+     * @param apellidos
+     * @param telefono
+     * @param direccion
+     * @param genero
+     */
+    public Cliente(long dpi, String nombres, String apellidos, String telefono, String direccion, char genero) {
         super(dpi, nombres, apellidos, telefono, direccion, genero);
     }
 
     @Override
-    public String getDpi() {
+    public long getDpi() {
         return dpi;
     }
 
+    /**
+     *
+     * @param dpi
+     */
     @Override
-    public void setDpi(String dpi) {
+    public void setDpi(long dpi) {
         this.dpi = dpi;
     }
 
@@ -38,6 +51,7 @@ public class Cliente extends Persona {
         return apellidos;
     }
 
+    @Override
     public void setApellidos(String apellidos) {
         this.apellidos = apellidos;
     }

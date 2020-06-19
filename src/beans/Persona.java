@@ -11,16 +11,10 @@ package beans;
  */
 public abstract class Persona {
 
-    String dpi;
-    String nombres;
-    String apellidos;
-    String telefono;
-    String direccion;
-    char genero;
+    public Persona() {
+    }
 
-    public Persona(){}
-    
-    public Persona(String dpi, String nombres, String apellidos, String telefono, String direccion, char genero) {
+    public Persona(long dpi, String nombres, String apellidos, String telefono, String direccion, char genero) {
         this.dpi = dpi;
         this.nombres = nombres;
         this.apellidos = apellidos;
@@ -29,11 +23,11 @@ public abstract class Persona {
         this.genero = genero;
     }
 
-    public String getDpi() {
+    public long getDpi() {
         return dpi;
     }
 
-    public void setDpi(String dpi) {
+    public void setDpi(long dpi) {
         this.dpi = dpi;
     }
 
@@ -76,4 +70,11 @@ public abstract class Persona {
     public void setGenero(char genero) {
         this.genero = genero;
     }
+    
+    long dpi;
+    String nombres;
+    String apellidos;
+    String telefono;
+    String direccion;
+    char genero;
 }

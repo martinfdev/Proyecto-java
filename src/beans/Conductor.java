@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package beans;
 
 /**
@@ -11,12 +6,10 @@ package beans;
  */
 public class Conductor extends Persona {
 
-    private char tipo_licencia;
-
     public Conductor() {
     }
 
-    public Conductor(char tipo_licencia, String dpi, String nombres, String apellidos, String telefono, String direccion, char genero) {
+    public Conductor(char tipo_licencia, long dpi, String nombres, String apellidos, String telefono, String direccion, char genero) {
         super(dpi, nombres, apellidos, telefono, direccion, genero);
         this.tipo_licencia = tipo_licencia;
     }
@@ -30,12 +23,12 @@ public class Conductor extends Persona {
     }
 
     @Override
-    public String getDpi() {
+    public long getDpi() {
         return dpi;
     }
 
     @Override
-    public void setDpi(String dpi) {
+    public void setDpi(long dpi) {
         this.dpi = dpi;
     }
 
@@ -88,4 +81,5 @@ public class Conductor extends Persona {
     public void setGenero(char genero) {
         this.genero = genero;
     }
+    private char tipo_licencia;
 }

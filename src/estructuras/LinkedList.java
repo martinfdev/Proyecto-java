@@ -14,12 +14,12 @@ import javax.swing.JOptionPane;
  */
 public class LinkedList<T> {
 
-    private Node<T> head, queue;
+    private Node<T> head, last;
     private int size;
     private Node<T> getaux;
 
     public LinkedList() {
-        head = queue = null;
+        head = last = null;
         size = 0;
     }
 
@@ -30,7 +30,7 @@ public class LinkedList<T> {
 
     //devuelve un booleano con valor true si la la lista esta vacia
     public boolean isEmpty() {
-        return head == null && queue == null;
+        return head == null && last == null;
     }
 
     //metodo para insertar un nodo dentro de la lista pide como parametro un nodo
@@ -39,7 +39,7 @@ public class LinkedList<T> {
     private void insertNode(Node n, boolean tipo, T data) {
         Node<T> newnode = new Node<>(data);
         if (isEmpty()) {
-            head = queue = newnode;
+            head = last = newnode;
             size++;
             return;
         }
@@ -49,9 +49,9 @@ public class LinkedList<T> {
             size++;
             return;
         }
-        if (n == queue && tipo == false) {
-            queue.next = newnode;
-            queue = newnode;
+        if (n == last && tipo == false) {
+            last.next = newnode;
+            last = newnode;
             size++;
         }
     }
@@ -63,15 +63,15 @@ public class LinkedList<T> {
 
     //agregar un nuevo dato en la cola de la lista
     public void add_queue(T data) {
-        insertNode(queue, false, data);
+        insertNode(last, false, data);
     }
 
     //borrar elemento de lista pide como parametro el elemento a eliminar
     private void deleteNode(Node n) {
         if (isEmpty()) {
             JOptionPane.showMessageDialog(null, "La lista esta vacia!");
-        } else if (n != null && n.next == queue) {
-            queue = n;
+        } else if (n != null && n.next == last) {
+            last = n;
             n.next = null;
             size--;
         } else if (n != null) {

@@ -1,11 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package estructuras;
+
 import beans.Cliente;
-import java.io.File;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -21,11 +17,12 @@ public class HashTable<T> {
     public HashTable(int size) {
         this.size = size;
         array = new NodoHash[this.size];
+        busy = 0;
     }
 
     //una funcion util para generar el hash
-    private int function_hash(int key) {
-        return ((key % size));
+    private int function_hash(long key) {
+        return (int) ((key % size));
     }
 
     //funcion util que devuelve el porcentaje ocupado
@@ -34,86 +31,45 @@ public class HashTable<T> {
     }
 
     //funcion util para insertar un elemento dentro del array
-    public void insert(T data, int key) {
-
+    public void insert(T data, long key) {
         boolean insert = false;
-        if (busy_porcent() < 90.00) {
+        if (busy_porcent() <= 75.00) {
             int hash = function_hash(key);
             if (this.array[hash] == null) {
                 array[hash] = new NodoHash();
-              //  array[hash].getList_user().add_queue((User) data);
+                array[hash].getList_client().add_head(data);
                 insert = true;
                 busy++;
             } else if (array[hash] != null) {
-             //   array[hash].getList_user().add_queue((User) data);
+                array[hash].getList_client().add_head(data);
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Porcentaje de de la tabla minima llema\nse reorganizara nuevamente el vector");
         }
     }
 
-    //metodo privado  para graficar el tabla hash en graphviz
-    private void generate_source_dot(StringBuilder dotsource) {
-        dotsource.append("nodel[label=\"Vector");
-        StringBuilder nodes = new StringBuilder(); //string para nodos
-        StringBuilder dir = new StringBuilder(); //string para direccion a que nodos debe apuntar
-        for (int i = 0; i < size; i++) {
-            if (array[i] != null) {
-               // System.out.print("[" + i + "] -> ");//encabezado
-                dotsource.append("|<f").append(i).append(">").append(i);//vector posiciones llenas
-                dir.append("nodel:f").append(i).append(" -> ");
-                DoubleLinkedList<Cliente> tmp = array[i].getList_client();
-                nodes.append("node").append(i).append("[label=\"{<g> |");
-                for (int j = 0; j < tmp.getSize(); j++) {
-                    Cliente temp = tmp.getData();
-                    nodes.append(temp.getNombres()).append("\\n").append(temp.getDpi()).append("\\n").append(temp.getTelefono()).append("|");
-                }
-                nodes.append("<s>}\"]\n");
-                dir.append("node").append(i).append(":g[arrowtail=dot, dir=both,tailclip=false];\n");
-            }
-        }
-        dotsource.append("\", height=.5];\n");
-        dotsource.append(nodes);
-        dotsource.append(dir);
-    }
-
-    //metod publico para generar imagen
-    public String report() {
-        StringBuilder dotsource = new StringBuilder();
-        Graphviz graph = new Graphviz();
-        graph.addln(graph.start_graph());
-        graph.addln("rankdir=LR;");
-        graph.addln("node [shape=record, color=blue, height=.1, widht=.1];");
-        graph.addln("edge[color=red];");
-        graph.addln("graph [nodesep=0.5];");
-        generate_source_dot(dotsource);
-        graph.add(dotsource.toString());
-        graph.add(graph.end_graph());
-        File f = new File("Hashtable.png");
-        graph.writeGraphToFile(graph.getGraph(graph.getDotSource(), "png"), f);
-        return graph.getPath();
-    }
-    
     //metodo para buscar en tabla hash
-    public Cliente search(int key){
+    public Cliente search(long key) {
         int i = function_hash(key);
-        if (array[i]!=null) {
+        if (array[i] != null) {
             DoubleLinkedList<Cliente> tmp = array[i].getList_client();
             for (int j = 0; j < tmp.getSize(); j++) {
-                if (Integer.parseInt(tmp.getData().getDpi())== key) {
+                if (tmp.getData().getDpi() == key) {
                     return tmp.getData();
                 }
             }
         }
         return null;
     }
-    
+
     //metodo para elimar de la tabla hash
-    public boolean delete(int key){
+    public boolean delete(long key) {
         int i = function_hash(key);
-        if (array[i]!=null) {
+        if (array[i] != null) {
             DoubleLinkedList<Cliente> tmp = array[i].getList_client();
             for (int j = 0; j < tmp.getSize(); j++) {
                 Cliente temp = tmp.getData();
-                if (Integer.parseInt(temp.getDpi())==key) {
+                if (temp.getDpi() == key) {
                     tmp.delete_data(temp);
                     return true;
                 }
@@ -121,12 +77,14 @@ public class HashTable<T> {
         }
         return false;
     }
-    
-    public int getSizeVector(){
-        return this.size;
-    }
-    
-    public void setSizeVector(int sizeVector){
+
+    public void setSizeVector(int sizeVector) {
         this.size = sizeVector;
     }
+
+    public void graphHashTable() {
+        Report re = new Report();
+        re.report(array);
+    }
+
 }
