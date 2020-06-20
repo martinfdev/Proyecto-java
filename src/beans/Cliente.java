@@ -1,5 +1,6 @@
 package beans;
 
+
 /**
  *
  * @author pedro
@@ -10,27 +11,23 @@ public class Cliente extends Persona {
     }
 
     /**
-     *
      * @param dpi
      * @param nombres
      * @param apellidos
      * @param telefono
      * @param direccion
      * @param genero
+     * @param fecha_na
      */
-    public Cliente(long dpi, String nombres, String apellidos, String telefono, String direccion, char genero) {
-        super(dpi, nombres, apellidos, telefono, direccion, genero);
+    public Cliente(long dpi, String nombres, String apellidos, String telefono, String direccion, String genero, String fecha_na) {
+        super(dpi, nombres, apellidos, telefono, direccion, genero, fecha_na);
     }
 
     @Override
     public long getDpi() {
         return dpi;
     }
-
-    /**
-     *
-     * @param dpi
-     */
+    
     @Override
     public void setDpi(long dpi) {
         this.dpi = dpi;
@@ -77,12 +74,22 @@ public class Cliente extends Persona {
     }
 
     @Override
-    public char getGenero() {
+    public String getGenero() {
         return genero;
     }
 
     @Override
-    public void setGenero(char genero) {
+    public void setGenero(String genero) {
         this.genero = genero;
+    }
+
+    @Override
+    public String getFecha_na() {
+        return fecha_na;
+    }
+
+    @Override
+    public void setFecha_na(String fecha_na) {
+        this.fecha_na = fecha_na;
     }
 }

@@ -9,13 +9,14 @@ public abstract class Persona {
     public Persona() {
     }
 
-    public Persona(long dpi, String nombres, String apellidos, String telefono, String direccion, char genero) {
+    public Persona(long dpi, String nombres, String apellidos, String telefono, String direccion, String genero, String fecha_na) {
         this.dpi = dpi;
         this.nombres = nombres;
         this.apellidos = apellidos;
         this.telefono = telefono;
         this.direccion = direccion;
         this.genero = genero;
+        this.fecha_na = fecha_na;
     }
 
     public long getDpi() {
@@ -58,18 +59,28 @@ public abstract class Persona {
         this.direccion = direccion;
     }
 
-    public char getGenero() {
+    public String getGenero() {
         return genero;
     }
 
-    public void setGenero(char genero) {
+    public void setGenero(String genero) {
         this.genero = genero;
     }
+
+    public String getFecha_na() {
+        return fecha_na;
+    }
+
+    public void setFecha_na(String fecha_na) {
+        this.fecha_na = fecha_na;
+    }
+        
     
     long dpi;
     String nombres;
     String apellidos;
     String telefono;
     String direccion;
-    char genero;
+    String genero;
+    String fecha_na;
 }

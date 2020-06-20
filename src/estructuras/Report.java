@@ -30,7 +30,7 @@ public class Report {
                 nodes.append("node").append(i).append("[label=\"{<g> |");
                 for (int j = 0; j < tmp.getSize(); j++) {
                     Cliente temp = tmp.getData();
-                    nodes.append(temp.getNombres()).append("\\n").append(temp.getDpi()).append("\\n").append(temp.getTelefono()).append("|");
+                    nodes.append("Nombre: ").append(temp.getNombres()).append("\\n").append("DPI: ").append(temp.getDpi()).append("\\n").append("Telefono: ").append(temp.getTelefono()).append("|");
                 }
                 nodes.append("<s>}\"]\n");
                 dir.append("node").append(i).append(":g[arrowtail=dot, dir=both,tailclip=false];\n");
@@ -41,7 +41,7 @@ public class Report {
         dotsource.append(dir);
     }
 
-    //metod publico para generar imagen pide como parametro el vector
+    //metodo publico para generar imagen pide como parametro el vector
     public String report(NodoHash[] array) {
         StringBuilder dotsource = new StringBuilder();
         Graphviz graph = new Graphviz();
@@ -57,5 +57,4 @@ public class Report {
         graph.writeGraphToFile(graph.getGraph(graph.getDotSource(), "png"), f);
         return graph.getPath();
     }
-
 }

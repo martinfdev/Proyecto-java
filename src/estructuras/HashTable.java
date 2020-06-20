@@ -102,4 +102,9 @@ public class HashTable<T> {
         array = new NodoHash[size];
         System.arraycopy(tmp, 0, array, 0, tmp.length); 
     }
+    
+   public void reporteT(){
+       Report r = new Report();
+       r.report(array);
+   }
 }

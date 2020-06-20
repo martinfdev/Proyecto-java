@@ -1,5 +1,7 @@
 package beans;
 
+import java.math.BigInteger;
+
 /**
  *
  * @author pedro
@@ -9,11 +11,12 @@ public class Conductor extends Persona {
     public Conductor() {
     }
 
-    public Conductor(char tipo_licencia, long dpi, String nombres, String apellidos, String telefono, String direccion, char genero) {
-        super(dpi, nombres, apellidos, telefono, direccion, genero);
+    public Conductor(char tipo_licencia, long dpi, String nombres, String apellidos, String telefono, String direccion, String genero, String fecha_na) {
+        super(dpi, nombres, apellidos, telefono, direccion, genero, fecha_na);
         this.tipo_licencia = tipo_licencia;
     }
 
+    
     public char getTipo_licencia() {
         return tipo_licencia;
     }
@@ -73,13 +76,24 @@ public class Conductor extends Persona {
     }
 
     @Override
-    public char getGenero() {
+    public String getGenero() {
         return genero;
     }
 
     @Override
-    public void setGenero(char genero) {
+    public void setGenero(String genero) {
         this.genero = genero;
     }
+
+    @Override
+    public String getFecha_na() {
+        return fecha_na;
+    }
+
+    @Override
+    public void setFecha_na(String fecha_na) {
+        this.fecha_na = fecha_na;
+    }
+    
     private char tipo_licencia;
 }
