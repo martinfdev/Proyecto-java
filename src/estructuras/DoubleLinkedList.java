@@ -10,7 +10,7 @@ package estructuras;
  * @author pedro
  * @param <T>
  */
-//El parametro T para la lista sera el dato almacenado y el parametro G sera la llave para guadar dicho dato
+//El parametro T para la lista sera el dato almacenado
 public class DoubleLinkedList<T> {
 
     private Node<T> head, queue, getaux;

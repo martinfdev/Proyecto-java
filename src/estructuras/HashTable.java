@@ -32,13 +32,11 @@ public class HashTable<T> {
 
     //funcion util para insertar un elemento dentro del array
     public void insert(T data, long key) {
-        boolean insert = false;
         if (busy_porcent() <= 75.00) {
             int hash = function_hash(key);
             if (this.array[hash] == null) {
                 array[hash] = new NodoHash();
                 array[hash].getList_client().add_head(data);
-                insert = true;
                 busy++;
             } else if (array[hash] != null) {
                 array[hash].getList_client().add_head(data);
@@ -62,7 +60,7 @@ public class HashTable<T> {
         return null;
     }
 
-    //metodo para elimar de la tabla hash
+    //metodo para eliminar de la tabla hash
     public boolean delete(long key) {
         int i = function_hash(key);
         if (array[i] != null) {
@@ -87,4 +85,21 @@ public class HashTable<T> {
         re.report(array);
     }
 
+    //metodo que comprueba  y redimemsiona  primo o impar
+    //esto para evitar que sea un numero par esto para evitar demesiadas colisiones
+    private void impar() {
+        if (size % 2 == 0) {
+           size = size - 1;
+        }
+    }
+
+    //metodo que genera el siguiente vector si el primero supera el 
+    //75% de capacidadad
+    private void new_vector() {
+        size = size*2;
+        NodoHash[] tmp = array;
+        impar();
+        array = new NodoHash[size];
+        System.arraycopy(tmp, 0, array, 0, tmp.length); 
+    }
 }
