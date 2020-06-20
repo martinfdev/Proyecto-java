@@ -27,7 +27,7 @@ public class HashTable<T> {
 
     //funcion util que devuelve el porcentaje ocupado
     private float busy_porcent() {
-        return (busy / size) * 100;
+       return ((float)busy / (float)size)*100;
     }
 
     //funcion util para insertar un elemento dentro del array
@@ -42,7 +42,8 @@ public class HashTable<T> {
                 array[hash].getList_client().add_head(data);
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Porcentaje de de la tabla minima llema\nse reorganizara nuevamente el vector");
+            //JOptionPane.showMessageDialog(null, "Porcentaje de la tabla minima lleno\nse reorganizara nuevamente el vector");
+            new_vector();
         }
     }
 
@@ -76,17 +77,20 @@ public class HashTable<T> {
         return false;
     }
 
+    /*
     public void setSizeVector(int sizeVector) {
         this.size = sizeVector;
-    }
-
+    }*/
+    
+    
+    //genera el grafico de la tabla hash
     public void graphHashTable() {
         Report re = new Report();
         re.report(array);
     }
 
-    //metodo que comprueba  y redimemsiona  primo o impar
-    //esto para evitar que sea un numero par esto para evitar demesiadas colisiones
+    //metodo que comprueba si es un numero primo o impar
+    //esto para evitar que sea un numero par,  esto para evitar demesiadas colisiones
     private void impar() {
         if (size % 2 == 0) {
            size = size - 1;
@@ -102,9 +106,4 @@ public class HashTable<T> {
         array = new NodoHash[size];
         System.arraycopy(tmp, 0, array, 0, tmp.length); 
     }
-    
-   public void reporteT(){
-       Report r = new Report();
-       r.report(array);
-   }
 }

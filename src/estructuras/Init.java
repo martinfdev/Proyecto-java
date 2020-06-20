@@ -25,7 +25,7 @@ public class Init {
         
         CargaMasiva cm = new CargaMasiva();
         cm.cargarClientes("/home/pedro/Documents/NetBeansProjects/[EDD]Proyecto2_201700656/Clientes.txt", htclientes);
-        htclientes.reporteT();
+        htclientes.graphHashTable();
       // String dpi = "2213747322311";
       // long num = Long.decode(dpi);
        // System.out.println(num);

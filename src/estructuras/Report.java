@@ -57,4 +57,5 @@ public class Report {
         graph.writeGraphToFile(graph.getGraph(graph.getDotSource(), "png"), f);
         return graph.getPath();
     }
+
 }

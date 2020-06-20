@@ -70,4 +70,12 @@ public class CargaMasiva {
         }
         return n_clie;
     }
+    
+    //metodo para la carga masiva de vehiculos recibe como parametro un string ruta del archivo
+    //y ub arbol b
+    public boolean cargarVehiculos(String ruta){
+        return true;
+    
+    }
+    
 }
