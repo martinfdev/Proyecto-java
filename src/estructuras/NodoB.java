@@ -24,6 +24,31 @@ public class NodoB<T> {
         this.hijo = hijo;
     }
     
+    /*
+     *Nos dice que si la pagina esta llena
+    */
+    protected boolean nodoLLeno(){
+        return (cuenta ==m-1);
+    }
+    
+    /*
+     *metodo que dice que si una pagina tiene menos de la mitad
+     *de claves
+    */
+    protected boolean nodeSemiVacio(){
+        return (cuenta<m/2);
+    }
+    
+    /*metodo que obtiene la clave en una posicion i del array de claves*/
+    protected T obtenerClave(int i){
+        return claves[i];
+    }
+    
+    
+    
+    
+    
+    
     
     private final int m; //maximo numero de claves que puede almacenar la pagina
     private int cuenta; //contiene el numero maximo de claves que almacena la pagina

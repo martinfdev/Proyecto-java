@@ -44,7 +44,8 @@ public class CargaMasiva {
         for (int i = 0; i < dcli.length; i++) {
             switch (i) {
                 case 0:
-                    n_clie.setDpi(Long.parseLong(dcli[i]));
+                    if(!"".equals(dcli[i]))
+                        n_clie.setDpi(Long.parseLong(dcli[i]));
                     break;
                 case 1:
                     n_clie.setNombres(dcli[i]);
@@ -75,7 +76,6 @@ public class CargaMasiva {
     //y ub arbol b
     public boolean cargarVehiculos(String ruta){
         return true;
-    
     }
     
 }
