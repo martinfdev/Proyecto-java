@@ -15,7 +15,7 @@ public class Init {
 
     //metod para probar las estructuras miestras se van implementando
     private void test() {
-       // HashTable<Cliente> htclientes = new HashTable<>(37);
+        HashTable<Cliente> htclientes = new HashTable<>(37);
        /* htclientes.insert(new Cliente(2574151141308L, "", "", "", "", 'M'), 2574151141308L);
         System.out.println(htclientes.search(2574151141308L).getDpi());
         System.out.println("-------");
@@ -24,11 +24,11 @@ public class Init {
         //ReadFile rf = new ReadFile();
         //System.out.println(rf.getText("/home/pedro/Documents/NetBeansProjects/[EDD]Proyecto2_201700656/Clientes.txt"));
         
-       // CargaMasiva cm = new CargaMasiva();
-       // cm.cargarClientes("/home/pedro/Documents/NetBeansProjects/[EDD]Proyecto2_201700656/Clientes.txt", htclientes);
-       // htclientes.graphHashTable();
+        CargaMasiva cm = new CargaMasiva();
+        cm.cargarClientes("/home/pedro/Documents/NetBeansProjects/[EDD]Proyecto2_201700656/Clientes.txt", htclientes);
+        htclientes.graphHashTable();
        
-       NodoB<Vehiculo> nuevo_nodo = new NodoB<>(10, false);
+       //NodoB<Vehiculo> nuevo_nodo = new NodoB<>(10, false);
        
     }
 
