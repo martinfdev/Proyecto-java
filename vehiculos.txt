@@ -1,0 +1,3 @@
+P654RCV:Toyota:Corolla:2005:Negro:28500:Automatico;
+C876GDW:Mitsubishi:Lancer:2007:Azul:32500:Mecanico;
+P345RTX:Toyota:Corolla:2005:Negro:32500:Automatico;

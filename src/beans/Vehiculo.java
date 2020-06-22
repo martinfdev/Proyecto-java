@@ -11,14 +11,14 @@ package beans;
  */
 public class Vehiculo {
 
-    private String placa, marca, color;
-    private int modelo, anio;
+    private String placa, marca, color, transmision, modelo;
+    private int anio;
     private float precio;
-    private boolean transmision; //transmision es falso cuando es mecanico y true cuando es automatico\
+     
     
     public Vehiculo(){}
 
-    public Vehiculo(String placa, String marca, String color, int modelo, int anio, float precio, boolean transmision) {
+    public Vehiculo(String placa, String marca, String color, String modelo, int anio, float precio, String transmision) {
         this.placa = placa;
         this.marca = marca;
         this.color = color;
@@ -52,11 +52,11 @@ public class Vehiculo {
         this.color = color;
     }
 
-    public int getModelo() {
+    public String getModelo() {
         return modelo;
     }
 
-    public void setModelo(int modelo) {
+    public void setModelo(String modelo) {
         this.modelo = modelo;
     }
 
@@ -76,11 +76,11 @@ public class Vehiculo {
         this.precio = precio;
     }
 
-    public boolean isTransmision() {
+    public String getTransmision() {
         return transmision;
     }
 
-    public void setTransmision(boolean transmision) {
+    public void setTransmision(String transmision) {
         this.transmision = transmision;
     }
        

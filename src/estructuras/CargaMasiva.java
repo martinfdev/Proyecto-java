@@ -44,8 +44,9 @@ public class CargaMasiva {
         for (int i = 0; i < dcli.length; i++) {
             switch (i) {
                 case 0:
-                    if(!"".equals(dcli[i]))
+                    if (!"".equals(dcli[i])) {
                         n_clie.setDpi(Long.parseLong(dcli[i]));
+                    }
                     break;
                 case 1:
                     n_clie.setNombres(dcli[i]);
@@ -71,11 +72,59 @@ public class CargaMasiva {
         }
         return n_clie;
     }
-    
+
     //metodo para la carga masiva de vehiculos recibe como parametro un string ruta del archivo
     //y ub arbol b
-    public boolean cargarVehiculos(String ruta){
+    public boolean cargarVehiculos(String rutaArchivo, BTree arbol) {
+        if ("".equals(rutaArchivo)) {
+            JOptionPane.showMessageDialog(null, "La Ruta del archivo esta vacia!");
+            return false;
+        }
+        if (arbol == null) {
+            JOptionPane.showMessageDialog(null, "El arbol no esta inicializado!");
+            return false;
+        }
+        ReadFile rf = new ReadFile();
+        String tmp = rf.getText(rutaArchivo);
+        tmp = tmp.replaceAll("\n", "");
+        String[] out = tmp.split(";");
+        for (String out1 : out) {
+          
+        }
         return true;
     }
-    
+
+    private Vehiculo generarVehiculo(String vehiculo_) {
+        String[] vehiculo = vehiculo_.split(":");
+        Vehiculo ve = new Vehiculo();
+        for (int i = 0; i < vehiculo.length; i++) {
+            switch (i) {
+                case 0:
+                    ve.setPlaca(vehiculo[i]);
+                    break;
+                case 1:
+                    ve.setMarca(vehiculo[i]);
+                    break;
+                case 2:
+                    ve.setModelo(vehiculo[i]);
+                    break;
+                case 3:
+                    ve.setAnio(Integer.parseInt(vehiculo[i]));
+                    break;
+                case 4:
+                    ve.setColor(vehiculo[i]);
+                    break;
+                case 5:
+                    ve.setPrecio(Float.parseFloat(vehiculo[i]));
+                    break;
+                case 6:
+                    ve.setTransmision(vehiculo[i]);
+                    break;
+                default:
+                    return null;
+            }
+        }
+        return ve;
+    }
+
 }
