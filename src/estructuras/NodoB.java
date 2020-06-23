@@ -9,11 +9,11 @@ import beans.Vehiculo;
 public class NodoB {
 
     //constructor con parametros
-    public NodoB(int t, boolean leaf) {
-        this.m = t;
-        this.es_hoja = leaf;
-        llave = new Vehiculo[2 * t - 1];
-        hijo = new NodoB[2 * t];
+    public NodoB(int m, boolean es_hoja) {
+        this.m = m;
+        this.es_hoja = es_hoja;
+        llave = new Vehiculo[2 * m - 1];
+        hijo = new NodoB[2 * m];
     }
 
     //una funcion que recorre todo los nodos enraizados en el subarbol de este nodo
@@ -64,11 +64,11 @@ public class NodoB {
     // Una función que devuelve el índice de la primera clave que es mayor
     // o igual a k
     private int utlimoIndice(String placa) {
-        int idx = 0;
-        while (idx < this.n_clave && llave[idx].getPlaca().compareToIgnoreCase(placa) < 0) {
-            ++idx;
+        int indice = 0;
+        while (indice < this.n_clave && llave[indice].getPlaca().compareToIgnoreCase(placa) < 0) {
+            ++indice;
         }
-        return idx;
+        return indice;
     }
 
     // Una función de utilidad para insertar una nueva clave en el subárbol enraizado con
@@ -117,25 +117,25 @@ public class NodoB {
     // Una función de utilidad para dividir el hijo y de este nodo. yo soy indice
     // de y en la matriz secundaria C []. El niño debe estar lleno cuando esto
     // la función se llama
-    void dividirEnHijos(int i, NodoB y) {
+    void dividirEnHijos(int i, NodoB ndo) {
         // Create a new node which is going to store (m-1) keys 
         // of y 
-        NodoB z = new NodoB(y.m, y.es_hoja);
+        NodoB z = new NodoB(ndo.m, ndo.es_hoja);
         z.n_clave = m - 1;
 
         // Copy the last (m-1) keys of y to z 
         for (int j = 0; j < m - 1; j++) {
-            z.llave[j] = y.llave[j + m];
+            z.llave[j] = ndo.llave[j + m];
         }
 
         // Copy the last m children of y to z 
-        if (y.es_hoja == false) {
+        if (ndo.es_hoja == false) {
             for (int j = 0; j < m; j++) {
-                z.hijo[j] = y.hijo[j + m];
+                z.hijo[j] = ndo.hijo[j + m];
             }
         }
         // Reduce the number of keys in y 
-        y.n_clave = m - 1;
+        ndo.n_clave = m - 1;
 
         // Since this node is going to have a new hijo, 
         // create space of new hijo 
@@ -153,7 +153,7 @@ public class NodoB {
         }
 
         // Copy the middle llave of y to this node 
-        llave[i] = y.llave[m - 1];
+        llave[i] = ndo.llave[m - 1];
 
         // Increment count of keys in this node 
         n_clave = n_clave + 1;
@@ -264,13 +264,13 @@ public class NodoB {
     // está presente en la posición indicex-th en el nodo
     private Vehiculo getSucesor(int idx) {
         // Sigue moviendo el nodo más a la izquierda comenzando desde hijo[indicex + 1] hasta que alcancemos una hoja
-        NodoB cur = hijo[idx + 1];
-        while (!cur.es_hoja) {
-            cur = cur.hijo[0];
+        NodoB camb = hijo[idx + 1];
+        while (!camb.es_hoja) {
+            camb = camb.hijo[0];
         }
 
         // Devuelve la primera clave de la hoja
-        return cur.llave[0];
+        return camb.llave[0];
     }
 
     // Una función para llenar el nodo hijo presente en el indicex-th
@@ -369,22 +369,22 @@ public class NodoB {
     // Una función para fusionar indicex-th hijo del nodo con (indicex + 1) th hijo de
     // el nodo
     private void mezclar(int indicex) {
-        NodoB child1 = hijo[indicex];
-        NodoB sibling = hijo[indicex + 1];
+        NodoB hijo1 = hijo[indicex];
+        NodoB hermano = hijo[indicex + 1];
 
         // Extraer una clave del nodo actual e insertarla en (m-1) th
         // posición de hijo[indicex]
-        child1.llave[m - 1] = llave[indicex];
+        hijo1.llave[m - 1] = llave[indicex];
 
         // Copiando las claves de hijo[indicex + 1] a hijo [indicex] al final
-        for (int i = 0; i < sibling.n_clave; ++i) {
-            child1.llave[i + m] = sibling.llave[i];
+        for (int i = 0; i < hermano.n_clave; ++i) {
+            hijo1.llave[i + m] = hermano.llave[i];
         }
 
         // Copiar los punteros secundarios de hijo[indicex + 1] a hijo[indicex] 
-        if (!child1.es_hoja) {
-            for (int i = 0; i <= sibling.n_clave; ++i) {
-                child1.hijo[i + m] = sibling.hijo[i];
+        if (!hijo1.es_hoja) {
+            for (int i = 0; i <= hermano.n_clave; ++i) {
+                hijo1.hijo[i + m] = hermano.hijo[i];
             }
         }
 
@@ -400,7 +400,7 @@ public class NodoB {
             hijo[i - 1] = hijo[i];
         }
         // Actualización del recuento de claves del elemento secundario y el nodo actual
-        child1.n_clave += sibling.n_clave + 1;
+        hijo1.n_clave += hermano.n_clave + 1;
         n_clave--;
     }
 
