@@ -47,13 +47,21 @@ public class Init {
         */
 //    String p1= "654CRV", p2 ="876GDW", p3 ="345RTX";
 //    
-//        if (p1.compareTo(p3)<0) {
-//            System.out.println(p1.compareTo(p3));
-//        }
-    BTree arbolb = new BTree(5);
-    CargaMasiva cm = new CargaMasiva();
-    cm.cargarVehiculos("/home/pedro/Documents/NetBeansProjects/[EDD]Proyecto2_201700656/vehiculos.txt", arbolb);
-        
+//        if (p1.compareTo(p2)<0) {
+//            System.out.println(p1.compareTo(p2));
+//            System.out.println("------");
+//        }else
+//            System.out.println(p1.compareToIgnoreCase(p2));
+    BTree ab = new BTree(5);
+   // CargaMasiva cm = new CargaMasiva();
+   // cm.cargarVehiculos("/home/pedro/Documents/NetBeansProjects/[EDD]Proyecto2_201700656/vehiculos.txt", ab);
+   Vehiculo v1, v2, v3, v4, v5, v6, v7;
+   v1 = new Vehiculo();
+   v2 = new Vehiculo();
+   v1.setPlaca("P123SDF");
+   v2.setPlaca("C123GSD");
+   ab.insertar(v1);
+   ab.insertar(v2);
      
       
       
