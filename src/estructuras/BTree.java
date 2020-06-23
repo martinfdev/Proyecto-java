@@ -1,7 +1,6 @@
 package estructuras;
 
 import beans.Vehiculo;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -9,126 +8,84 @@ import javax.swing.JOptionPane;
  */
 public class BTree {
 
-    public BTree(int grado) {
-        this.orden = grado;
+    public BTree(int t) {
         raiz = null;
+        this.m = t;
     }
 
-    //retorna si el arbol esta vacio
-    public boolean siEmpty() {
-        return (raiz == null);
+    public void recorrer() {
+        if (this.raiz != null) {
+            this.raiz.recorrerN();
+            System.out.println("");
+        }
     }
 
-    /*metodo publico para buscar en el arbol*/
+    //funcion para buscar una clave en el arbol
     public Vehiculo buscar(String placa) {
-        return buscar(raiz, placa);
-    }
-
-    //metodo privado para hacer la busqueda dentro del arbol
-    //busqueda interna
-    private Vehiculo buscar(NodoB<Vehiculo> raiz, String placa) {
-        int i = 0;
-        if (raiz == null) {
+        if (this.raiz == null) {
             return null;
+        } else {
+            return this.raiz.search(placa);
         }
-        while (i < raiz.getNumero_claves() && raiz.getClave(i).getPlaca().compareTo(placa) < 0) {
-            i++;
-        }
-
-        try {
-            if (placa.equalsIgnoreCase(raiz.getClave(i).getPlaca())) {
-                return raiz.getClave(i);
-            }
-        } catch (Exception e) {
-        }
-
-        if (raiz.getEsHoja()) {
-            return null;
-        }
-        return buscar(raiz.getNodo(i), placa);
     }
 
-    //metodo public para insertar
-    public void insertar(Vehiculo dato) {
-        raiz = insertar(raiz, dato);
-    }
-
-    //metodo privado para poder insertar
-    private NodoB<Vehiculo> insertar(NodoB<Vehiculo> raiz, Vehiculo dato) {
-        //creamos un nuevo nodo si la raiz esta vacia
+    public void insertar(Vehiculo data) {
+        // Si el árbol está vacío
         if (raiz == null) {
-            raiz = new NodoB<>(orden, true);//creamos el nuevo nodo
-            raiz.setClave(0, dato);//insertamos la clave en el nuevo nodo 
-            raiz.setNumero_claves(1);//incrementamos el numero de claves existentes ene el nodo
-        } else {//cuando la raiz no esta vacia           
-            //si el nodo esta lleno, entonces el arbol crece en altura
-            if (raiz.getNumero_claves() == orden - 1) {//comprobrobamos que el numero de claves es igual a el orden -1
-                //creamos un nuevo nodo
-                NodoB<Vehiculo> nuevo = new NodoB<>(orden, false);
-                //hacer la raiz actual como hija de la raiz nueva
-                nuevo.setNodo(0, nuevo);
+            // Asigna memoria para la raiz 
+            raiz = new NodoB(m, true);
+            raiz.llave[0] = data;  // Insetar la clave 
+            raiz.n_clave = 1;  // Actualiza el numero de claves en la raiz 
+        } else // Si el arbol no esta vacio 
+        {
+            // Si la raíz está llena, entonces el árbol crece en altura
+            if (raiz.n_clave == 2 * m - 1) {
+                // Asigna memoria para la nueva raiz
+                NodoB s = new NodoB(m, false);
 
-                //dividir la raiz anterior y mover 1 clave a la nueva raiz
+                // Hacer antigua la raiz como hija de la nueva raiz 
+                s.hijo[0] = raiz;
+
+                // Divide la raíz anterior y mueve 1 clave a la nueva raíz
+                s.splitChild(0, raiz);
+
+                // La nueva raíz tiene dos hijos ahora. Decidir cuál de los
+                // dos hijos van a tener una nueva clave
+                int i = 0;
+                if (s.llave[0].getPlaca().compareToIgnoreCase(data.getPlaca()) < 0) {
+                    i++;
+                }
+                s.hijo[i].insertNonFull(data);
+
+                // cambiar la raiz 
+                raiz = s;
+            } else // Si la raíz no está llena, llamar a insertNonFull para la raíz
+            {
+                raiz.insertNonFull(data);
             }
         }
-        return raiz;
     }
 
-    //metodo privado para insertar claves cuando el nodo no esta lleno
-    private NodoB<Vehiculo> insertarClaveNodoNoLleno(NodoB<Vehiculo> raiz, Vehiculo dato) {
-        int i = raiz.getNumero_claves() - 1;//al numero de claves insetados le restamos una unidad para que sea
-        //indice correcto al acual vamos a insertar la nueva clave
-
-        //comprobamos si no es un nodo hoja
-        if (raiz.getEsHoja()) {
-            /*hacemos dos cosas en esta parte del metodo
-             * a) econtrar la nueva ubicacion de la nueva clave
-             * b) mover todas las claves mayores un lugar adelante
-             */
-            while (i >= 0 && raiz.getClave(i).getPlaca().compareToIgnoreCase(dato.getPlaca()) > 0) {
-                //raiz.claves[i+1]=raiz.claves[i];
-                raiz.setClave(i + 1, raiz.getClave(i));
-                i--;
-            }
-            //insertar la nueva clave en la ubicacion adecuada
-            raiz.setClave(i + 1, dato);
-            raiz.setNumero_claves(raiz.getNumero_claves() + 1);
-            return raiz;
-        } else {//en caso de que el nodo no sea hija
-            //buscamos el nodo hijo que tendra la nueva clave
-            while (i >= 0 && raiz.getClave(i).getPlaca().compareToIgnoreCase(dato.getPlaca()) > 0) {
-                i--;
-            }
-            //ver si el hijo encontrado esta lleno
-            if (raiz.getNodo(i + 1).getNumero_claves() == orden - 1) {
-                raiz = dividirNodo(i + 1, raiz.getNodo(i + 1));
-            }
-            /*Despues de dividir el nodo en la posicion [i] en dos
-             *ver en cual de los dos se va insertar la nueva clave
-             */
-            if (raiz.getClave(i + 1).getPlaca().compareToIgnoreCase(dato.getPlaca()) < 0) {
-                i++;
-            }
-            raiz = insertarClaveNodoNoLleno(raiz.getNodo(i + 1), dato);
+    public void eliminar(String placa) {
+        if (raiz == null) {
+            System.out.println("El arbol esta vacio");
+            return;
         }
-        return raiz;
-    }
+        // // Llamar a la función remove para la raiz
+        raiz.remove(placa);
 
-    //metodo para dividir un nodo lleno
-    private NodoB<Vehiculo> dividirNodo(int i, NodoB<Vehiculo> raiz) {
-        //crea un nuevo nodo que almacenara las nuevas claves
-        NodoB<Vehiculo> tmpz = new NodoB<>(orden, raiz.getEsHoja());
-        
-        //copiar las ultimas claves al nuevo nodo tempz
-        int k=orden-1;
-        for (int j = 0; j <= k; j++) {
-            tmpz.setClave(j, raiz.getClave(k));
-            
+        // Si el nodo raíz tiene 0 claves, hacer su primer hijo como la nueva raíz
+        // si tiene un hijo, de lo contrario establecer la raiz como null
+        if (raiz.n_clave == 0) {
+            NodoB tmp = raiz;
+            if (raiz.es_hoja) {
+                raiz = null;
+            } else {
+                raiz = raiz.hijo[0];
+            }
         }
-        
-       return raiz; 
     }
 
-    private final int orden; //grado del arbol
-    private NodoB<Vehiculo> raiz; //raiz del arbol
+    private final int m; //grado del arbol
+    private NodoB raiz; //raiz del arbol
 }
