@@ -27,22 +27,8 @@ public class Init {
         //   htclientes.graphHashTable();
 
         //NodoB<Vehiculo> nuevo_nodo = new NodoB<>(10, false);
-        /*  VerticeAdyacente listaAdy = new VerticeAdyacente();
-        listaAdy.addRuta("madrid", "zaragoza", 10);
-        listaAdy.addRuta("madrid", "barcelona", 120);
-        listaAdy.addRuta("bilbao", "malaga", 80);
-        listaAdy.addRuta("barcelona", "bilbao", 82);
-        listaAdy.addRuta("osasuna", "bilbao", 90);
-        listaAdy.addRuta("madrid", "malaga", 40);
-        listaAdy.addRuta("malaga", "madrid", 120);
-        listaAdy.addRuta("malaga", "gerona", 70);
-        listaAdy.addRuta("gerona", "barcelona", 660);
-        listaAdy.addRuta("valladolid", "malaga", 40);
-        listaAdy.addRuta("oviedo", "madrid", 120);
-        listaAdy.addRuta("oviedo", "gerona", 70);
-        listaAdy.addRuta("valladolid", "oviedo", 660);
-        listaAdy.mostrarElementos();
-         */
+        
+         
         //    String p1= "654CRV", p2 ="876GDW", p3 ="345RTX";
         //    
         //        if (p1.compareTo(p2)<0) {

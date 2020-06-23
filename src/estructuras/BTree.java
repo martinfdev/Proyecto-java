@@ -25,7 +25,7 @@ public class BTree {
         if (this.raiz == null) {
             return null;
         } else {
-            return this.raiz.search(placa);
+            return this.raiz.buscarN(placa);
         }
     }
 
@@ -47,7 +47,7 @@ public class BTree {
                 s.hijo[0] = raiz;
 
                 // Divide la raíz anterior y mueve 1 clave a la nueva raíz
-                s.splitChild(0, raiz);
+                s.dividirEnHijos(0, raiz);
 
                 // La nueva raíz tiene dos hijos ahora. Decidir cuál de los
                 // dos hijos van a tener una nueva clave
@@ -55,13 +55,13 @@ public class BTree {
                 if (s.llave[0].getPlaca().compareToIgnoreCase(data.getPlaca()) < 0) {
                     i++;
                 }
-                s.hijo[i].insertNonFull(data);
+                s.hijo[i].insertarNoLLeno(data);
 
                 // cambiar la raiz 
                 raiz = s;
             } else // Si la raíz no está llena, llamar a insertNonFull para la raíz
             {
-                raiz.insertNonFull(data);
+                raiz.insertarNoLLeno(data);
             }
         }
     }
@@ -72,7 +72,7 @@ public class BTree {
             return;
         }
         // // Llamar a la función remove para la raiz
-        raiz.remove(placa);
+        raiz.borrar(placa);
 
         // Si el nodo raíz tiene 0 claves, hacer su primer hijo como la nueva raíz
         // si tiene un hijo, de lo contrario establecer la raiz como null
