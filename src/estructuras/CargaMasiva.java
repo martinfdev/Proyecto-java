@@ -89,11 +89,13 @@ public class CargaMasiva {
         tmp = tmp.replaceAll("\n", "");
         String[] out = tmp.split(";");
         for (String out1 : out) {
-          
+            Vehiculo vh =  generarVehiculo(out1);
+            arbol.insertar(vh);
         }
         return true;
     }
 
+    //metodo privado que genera y devuleve un objeto de tipo vehiculo con todos los datos seteados
     private Vehiculo generarVehiculo(String vehiculo_) {
         String[] vehiculo = vehiculo_.split(":");
         Vehiculo ve = new Vehiculo();

@@ -27,7 +27,7 @@ public class NodoB {
             if (es_hoja == false) {
                 hijo[i].recorrerN();
             }
-            System.out.print(llave[i].getPlaca() + " ");
+            System.out.println(llave[i].getPlaca() + " ");
         }
         //Imprime el subárbol enraizado derecho con el último hijo
         if (es_hoja == false) {
