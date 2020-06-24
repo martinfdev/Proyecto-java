@@ -6,14 +6,12 @@ package beans;
  */
 public class Vehiculo {
 
-    private String placa, marca, color, transmision, modelo;
-    private int anio;
-    private float precio;
+    private String placa, marca, color, transmision, modelo, precio, anio;
      
     
     public Vehiculo(){}
 
-    public Vehiculo(String placa, String marca, String color, String modelo, int anio, float precio, String transmision) {
+    public Vehiculo(String placa, String marca, String color, String modelo, String anio, String precio, String transmision) {
         this.placa = placa;
         this.marca = marca;
         this.color = color;
@@ -55,19 +53,19 @@ public class Vehiculo {
         this.modelo = modelo;
     }
 
-    public int getAnio() {
+    public String getAnio() {
         return anio;
     }
 
-    public void setAnio(int anio) {
+    public void setAnio(String anio) {
         this.anio = anio;
     }
 
-    public float getPrecio() {
+    public String getPrecio() {
         return precio;
     }
 
-    public void setPrecio(float precio) {
+    public void setPrecio(String precio) {
         this.precio = precio;
     }
 

@@ -5,6 +5,8 @@
  */
 package estructuras;
 
+import beans.Conductor;
+
 /**
  *
  * @author pedro
@@ -43,7 +45,7 @@ public class DoubleLinkedList<T> {
             head.back = newnode;
             head = newnode;
             size++;
-        } //si n es igual a la cola de la lista e in es true se insertaa al fina de la lista
+        } //si n es igual a la cola de la lista e in es true se insertaa al final de la lista
         else if (n == queue && in == true) {
             newnode.back = queue;
             queue.next = newnode;
@@ -82,9 +84,9 @@ public class DoubleLinkedList<T> {
         }
         return null;
     }
-    
+
     //metodo retornar los datos en el nodo de la lista 
-    public T getData(){
+    public T getData() {
         if (isEmpty()) {
             if (getaux == null) {
                 getaux = head;
@@ -102,36 +104,84 @@ public class DoubleLinkedList<T> {
         }
         return null;
     }
-  
+
     //metodo para eliminar 
-    private void delete(Node<T> n){
+    private void delete(Node<T> n) {
         if (isEmpty()) {
-            if (n==head) {
-                head= head.next;
+            if (n == head) {
+                head = head.next;
                 size--;
-            }else if(n==queue){
-                queue=queue.back;
+            } else if (n == queue) {
+                queue = queue.back;
                 size--;
-            }else{
-               n.back.next = n.next;
-               n.next.back = n.back;
-               size--;
-            }    
+            } else {
+                n.back.next = n.next;
+                n.next.back = n.back;
+                size--;
+            }
         }
     }
-    
+
     //funcion util para borrar en la cabeza de la lista
-    public void delete_head(){
+    public void delete_head() {
         delete(head);
     }
+
+    //metodo privado que inserta de forma cicular al inicio recibe como parametro Un nodo, dato y un bool si es verdadero inserta al inicio falso inserta al final
+    private void insertC(Node<T> n, T data, boolean in) {
+        Node<T> newnode = new Node<>(data);
+        if (!isEmpty()) {
+            head = queue = newnode;
+            head.back = queue;
+            queue.next = head;
+            size++;
+        } //si n es igual a la cabeza de la lista e in es falso insertar de primero
+        else if (n == head && in == false) {
+            newnode.next = head;
+            head.back = newnode;
+            queue.next = newnode;
+            newnode.back= queue;
+            head = newnode;
+            size++;
+        } //si n es igual a la cola de la lista e in es true se insertaa al final de la lista
+        else if (n == queue && in == true) {
+            newnode.back = queue;
+            queue.next = newnode;
+            newnode.next = head;
+            head.back = newnode;
+            queue = newnode;
+            size++;
+        } //otro caso insertar el nuevo nodo antes de un nodo dado
+        else {
+            n.back.next = newnode;
+            newnode.back = n.back;
+            n.back = newnode;
+            newnode.next = n;
+            size++;
+        }
+        
+    }
     
+    //metodo para agregar al principio en una lista comportamiento circular 
+    public void add_headc(T data){
+        insertC(head, data, false);
+    }
+    
+    //metodo para insertar al final en una lista de coportamiento circular    
+    public void add_endc(T data){
+        insertC(head, data, true);
+    }
+
     //funcion util para borra en la cola de la lista
-    public void delete_end(){
+    public void delete_end() {
         delete(queue);
     }
-    
+
     //eliminar con parametro
-    public void delete_data(T data){
+    public void delete_data(T data) {
         delete(search(data));
     }
+     
+    //metodo que devuelve el nodo cabeza
+    public Node<T> getHead(){return head; }   
 }

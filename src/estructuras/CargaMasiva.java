@@ -89,8 +89,10 @@ public class CargaMasiva {
         tmp = tmp.replaceAll("\n", "");
         String[] out = tmp.split(";");
         for (String out1 : out) {
-            Vehiculo vh =  generarVehiculo(out1);
-            arbol.insertar(vh);
+            Vehiculo vh = generarVehiculo(out1);
+            if (vh != null) {
+                arbol.insertar(vh);
+            }
         }
         return true;
     }
@@ -111,13 +113,13 @@ public class CargaMasiva {
                     ve.setModelo(vehiculo[i]);
                     break;
                 case 3:
-                    ve.setAnio(Integer.parseInt(vehiculo[i]));
+                    ve.setAnio(vehiculo[i]);
                     break;
                 case 4:
                     ve.setColor(vehiculo[i]);
                     break;
                 case 5:
-                    ve.setPrecio(Float.parseFloat(vehiculo[i]));
+                    ve.setPrecio(vehiculo[i]);
                     break;
                 case 6:
                     ve.setTransmision(vehiculo[i]);

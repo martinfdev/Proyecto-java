@@ -1,6 +1,7 @@
 package estructuras;
 
 import beans.Cliente;
+import beans.Conductor;
 import beans.Vehiculo;
 
 /**
@@ -33,10 +34,10 @@ public class Init {
         //            System.out.println("------");
         //        }else
         //            System.out.println(p1.compareToIgnoreCase(p2));
-        BTree ab = new BTree(5);
-        CargaMasiva cm = new CargaMasiva();
-        cm.cargarVehiculos("/home/pedro/Documents/NetBeansProjects/[EDD]Proyecto2_201700656/vehiculos.txt", ab);
-        ab.recorrer();
+//        BTree ab = new BTree(5);
+//        CargaMasiva cm = new CargaMasiva();
+//        cm.cargarVehiculos("/home/pedro/Documents/NetBeansProjects/[EDD]Proyecto2_201700656/vehiculos.txt", ab);
+//        ab.recorrer();
 //           Vehiculo v1, v2, v3, v4, v5, v6, v7;
         //           v1 = new Vehiculo();
         //           v2 = new Vehiculo();
@@ -69,7 +70,30 @@ public class Init {
         //        for (int i = 0; i < j; i++) {
         //            System.out.println(i+j);
         //        }
-
+//        DoubleLinkedList<Conductor> ls = new DoubleLinkedList<>();
+//        Conductor c1, c2, c3, c4, c5, c6, c7, c8, c9;
+//        c1 = new Conductor('M', 9575131141301L, "", "", "", "", "", "");
+//        c2 = new Conductor('M', 4235131141302L, "", "", "", "", "", "");
+//        c3 = new Conductor('M', 6545131141303L, "", "", "", "", "", "");
+//        c4 = new Conductor('M', 5745131141304L, "", "", "", "", "", "");
+//        c5 = new Conductor('M', 3235131141305L, "", "", "", "", "", "");
+//        c6 = new Conductor('M', 2645131141306L, "", "", "", "", "", "");
+//        c7 = new Conductor('M', 8755131141307L, "", "", "", "", "", "");
+//        c8 = new Conductor('M', 1645131141308L, "", "", "", "", "", "");
+//        c9 = new Conductor('M', 7455131141309L, "", "", "", "", "", "");
+//        ls.add_headc(c1);
+//        ls.add_endc(c2);
+//        ls.add_endc(c3);
+//        ls.add_endc(c4);
+//        ls.add_endc(c5);
+//        ls.add_endc(c6);
+//        ls.add_endc(c7);
+//        ls.add_endc(c8);
+//        ls.add_endc(c9);
+//        Sort s = new Sort();
+//        s.ordenarListaDoble(ls);
+//        for (int i = 0; i < ls.getSize(); i++) {
+//            System.out.println(ls.getData().getDpi());
+//        } 
     }
-
 }
