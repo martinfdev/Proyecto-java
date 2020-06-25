@@ -16,16 +16,16 @@ public class Init {
 
     //metod para probar las estructuras miestras se van implementando
     private void test() {
-        //  HashTable<Cliente> htclientes = new HashTable<>(37);
+          HashTable<Cliente> htclientes = new HashTable<>(37);
         /* htclientes.insert(new Cliente(2574151141308L, "", "", "", "", 'M'), 2574151141308L);
         System.out.println(htclientes.search(2574151141308L).getDpi());
         System.out.println("-------");
          */
-        //ReadFile rf = new ReadFile();
-        //System.out.println(rf.getText("/home/pedro/Documents/NetBeansProjects/[EDD]Proyecto2_201700656/Clientes"));
-//        CargaMasiva cm = new CargaMasiva();
-        //   cm.cargarClientes("/home/pedro/Documents/NetBeansProjects/[EDD]Proyecto2_201700656/Clientes", htclientes);
-        //   htclientes.graphHashTable();     
+       // ReadFile rf = new ReadFile();
+       // System.out.println(rf.getText("/home/pedro/Documents/NetBeansProjects/[EDD]Proyecto2_201700656/Clientes"));
+        CargaMasiva cm = new CargaMasiva();
+         //  cm.cargarClientes("/home/pedro/Documents/NetBeansProjects/[EDD]Proyecto2_201700656/Clientes", htclientes);
+         //  htclientes.graphHashTable();     
 
         //    String p1= "654CRV", p2 ="876GDW", p3 ="345RTX";
         //    
@@ -35,7 +35,7 @@ public class Init {
         //        }else
         //            System.out.println(p1.compareToIgnoreCase(p2));
 //        BTree ab = new BTree(5);
-        CargaMasiva cm = new CargaMasiva();
+//        CargaMasiva cm = new CargaMasiva();
 //        cm.cargarVehiculos("/home/pedro/Documents/NetBeansProjects/[EDD]Proyecto2_201700656/vehiculos", ab);
 //        ab.recorrer();
 //           Vehiculo v1, v2, v3, v4, v5, v6, v7;
@@ -70,8 +70,8 @@ public class Init {
         //        for (int i = 0; i < j; i++) {
         //            System.out.println(i+j);
         //        }
-        //DoubleLinkedList<Conductor> ls = new DoubleLinkedList<>();
-        //cm.cargarConductores("/home/pedro/Documents/NetBeansProjects/[EDD]Proyecto2_201700656/Conductores", ls);
+//        DoubleLinkedList<Conductor> ls = new DoubleLinkedList<>();
+//        cm.cargarConductores("/home/pedro/Documents/NetBeansProjects/[EDD]Proyecto2_201700656/Conductores", ls);
 //        Conductor c1, c2, c3, c4, c5, c6, c7, c8, c9;
 //        c1 = new Conductor('M', 9575131141301L, "", "", "", "", "", "");
 //        c2 = new Conductor('M', 4235131141302L, "", "", "", "", "", "");
@@ -91,7 +91,7 @@ public class Init {
 //        ls.add_endc(c7);
 //        ls.add_endc(c8);
 //        ls.add_endc(c9);
-        //Sort s = new Sort();
+//          Sort s = new Sort();
 //         s.ordenarListaDoble(ls);
 //        for (int i = 0; i < ls.getSize(); i++) {
 //            System.out.println(ls.getData().getDpi());
@@ -104,5 +104,18 @@ public class Init {
 //        for (int i = 0; i < ls.getSize(); i++) {
 //            System.out.println(ls.getData().getDpi());
 //        }
+        Grafo gr = new Grafo();    
+//        gr.insertarArco("Oviedo", "Bilbao", 304);
+//        gr.insertarArco("Bilbao", "Zaragoza", 324);
+//        gr.insertarArco("Bilbao", "Madrid", 395);
+//        gr.insertarArco("Bilbao", "Valladolid", 280);
+//        gr.insertarArco("Zaragoza", "Barcelona", 296);
+//        gr.insertarArco("Barcelona", "Gerona", 100);
+//        gr.insertarArco("Zaragoza", "Madrid", 325);
+        //gr.listaAdyacencia();
+        cm.cargarRutas("/home/pedro/Documents/NetBeansProjects/[EDD]Proyecto2_201700656/Rutas", gr);
+        gr.reporte();
     }
+    
+
 }

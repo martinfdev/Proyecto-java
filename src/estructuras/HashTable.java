@@ -86,7 +86,7 @@ public class HashTable<T> {
     //genera el grafico de la tabla hash
     public void graphHashTable() {
         Report re = new Report();
-        re.report(array);
+        re.reportHashTable(array);
     }
 
     //metodo que comprueba si es un numero primo o impar

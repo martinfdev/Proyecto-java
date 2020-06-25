@@ -1,5 +1,5 @@
-
 package estructuras;
+
 import beans.Cliente;
 import java.io.File;
 
@@ -8,7 +8,7 @@ import java.io.File;
  * @author pedro
  */
 public class Report {
-    
+
     public Report() {
     }
 
@@ -34,6 +34,8 @@ public class Report {
                 }
                 nodes.append("<s>}\"]\n");
                 dir.append("node").append(i).append(":g[arrowtail=dot, dir=both,tailclip=false];\n");
+            } else {
+                dotsource.append("|<f").append(i).append(">").append(i);
             }
         }
         dotsource.append("\", height=.5];\n");
@@ -42,12 +44,12 @@ public class Report {
     }
 
     //metodo publico para generar imagen pide como parametro el vector
-    public String report(NodoHash[] array) {
+    public String reportHashTable(NodoHash[] array) {
         StringBuilder dotsource = new StringBuilder();
         Graphviz graph = new Graphviz();
         graph.addln(graph.start_graph());
         graph.addln("rankdir=LR;");
-        graph.addln("node [shape=record, color=blue, height=.1, widht=.1];");
+        graph.addln("node [shape=record, color=blue, height=.1, width=.1];");
         graph.addln("edge[color=red];");
         graph.addln("graph [nodesep=0.5];");
         generate_source_dot(dotsource, array);
@@ -56,6 +58,38 @@ public class Report {
         File f = new File("Hashtable.png");
         graph.writeGraphToFile(graph.getGraph(graph.getDotSource(), "png"), f);
         return graph.getPath();
+    }
+
+    //metod publico para genera reporte de grafos pide como parameto el nodo cabeza del grafo
+    //y deuvuelve el string de la ruta donde se creo el archivo
+    public String resporteGrafos(NodoG inicio) {
+        StringBuilder dotsource = new StringBuilder();
+        Graphviz graph = new Graphviz();
+        graph.addln(graph.start_graph());
+        graph.addln("rankdir=LR;");
+        graph.addln("node [shape=circle, color=blue];");
+        graph.addln("edge[color=red];");
+        get_dot_grafos(dotsource, inicio);
+        graph.add(dotsource.toString());
+        graph.add(graph.end_graph());
+        File f = new File("GrafosRutas.png");
+        graph.writeGraphToFile(graph.getGraph(graph.getDotSource(), "png"), f);
+        return graph.getPath();
+    }
+    
+    //metodo donde se genera el string de dot para los grafos
+    private void get_dot_grafos(StringBuilder dotsorce, NodoG inicio){
+        NodoG naux = inicio;
+        ArcoG aaux;
+        while (naux != null) {
+            aaux = naux.adyacencia;
+            while (aaux != null) {
+                //System.out.println("-"+aaux.peso+"-> "+aaux.adyacencia.nombre);
+                dotsorce.append(naux.getNombre()).append(" -> ").append(aaux.adyacencia.nombre).append("[label=\"").append(aaux.peso).append("\"];\n");
+                aaux = aaux.siguiente;
+            }
+            naux = naux.siguiente;
+        } 
     }
 
 }

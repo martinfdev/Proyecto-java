@@ -129,7 +129,7 @@ public class CargaMasiva {
 
     //metodo para la carga masiva de conductores espera como parametro una listasdoblemente enlazada
     //y un string para la ruta del archivo
-    public boolean cargarConductores(String rutaArchivo, DoubleLinkedList<Conductor> lDoble){
+    public boolean cargarConductores(String rutaArchivo, DoubleLinkedList<Conductor> lDoble) {
         if ("".equals(rutaArchivo)) {
             JOptionPane.showMessageDialog(null, "La Ruta del archivo esta vacia!");
             return false;
@@ -140,19 +140,19 @@ public class CargaMasiva {
         }
         ReadFile rd = new ReadFile();
         String out[] = rd.getText(rutaArchivo).replaceAll("\n", "").split(";");
-        for (int i = 0; i < out.length; i++) {
-            lDoble.add_endc(generarCondutor(out[i]));
+        for (String out1 : out) {
+            lDoble.add_endc(generarCondutor(out1));
         }
         return true;
     }
-    
+
     //metodo privado donde se crea un un objeto de tipo Conductor con los datos ya seteandos y lo devuelve
     //recibe como parametro una cadena string de tipo conductor
-    private Conductor generarCondutor(String conductor){
+    private Conductor generarCondutor(String conductor) {
         String con[] = conductor.split("%");
         Conductor c = new Conductor();
         for (int i = 0; i < con.length; i++) {
-            switch(i){
+            switch (i) {
                 case 0:
                     c.setDpi(Long.parseLong(con[i]));
                     break;
@@ -178,12 +178,33 @@ public class CargaMasiva {
                     c.setDireccion(con[i]);
                     break;
                 default:
-                    System.out.println("Dato demas!\t"+con[i]);
+                    System.out.println("Dato demas!\t" + con[i]);
                     break;
             }
         }
-    return c;
+        return c;
     }
-    
-    
+
+    //metodo para la carga masiva de rutas pide como parametro la ruta del archivo 
+    //y un objeto de tipo Grafo
+    public boolean cargarRutas(String rutaArchivo, Grafo grafo) {
+        if ("".equals(rutaArchivo)) {
+            JOptionPane.showMessageDialog(null, "La Ruta del archivo esta vacia!");
+            return false;
+        }
+        if (grafo == null) {
+            JOptionPane.showMessageDialog(null, "El grafo no esta inicializado!");
+            return false;
+        }
+        ReadFile rd = new ReadFile();
+        String out[] = rd.getText(rutaArchivo).replaceAll("\n", "").split("%");
+        for (String out1 : out) {
+            String ruta[] = out1.split("/");
+            if (ruta.length > 1) {
+                grafo.insertarArco(ruta[0], ruta[1], Integer.parseInt(ruta[2]));
+            }
+        }
+        return true;
+    }
+
 }
