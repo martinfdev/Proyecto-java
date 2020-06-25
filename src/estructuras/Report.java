@@ -67,7 +67,7 @@ public class Report {
         Graphviz graph = new Graphviz();
         graph.addln(graph.start_graph());
         graph.addln("rankdir=LR;");
-        graph.addln("node [shape=circle, color=blue];");
+        graph.addln("node [shape=plaintext];");
         graph.addln("edge[color=red];");
         get_dot_grafos(dotsource, inicio);
         graph.add(dotsource.toString());
@@ -76,20 +76,23 @@ public class Report {
         graph.writeGraphToFile(graph.getGraph(graph.getDotSource(), "png"), f);
         return graph.getPath();
     }
-    
+
     //metodo donde se genera el string de dot para los grafos
-    private void get_dot_grafos(StringBuilder dotsorce, NodoG inicio){
+    private void get_dot_grafos(StringBuilder dotsorce, NodoG inicio) {
+        StringBuilder auxs1 = new StringBuilder(), auxs2 = new StringBuilder();
         NodoG naux = inicio;
         ArcoG aaux;
         while (naux != null) {
+            auxs1.append(naux.nombre).append("[label=\"").append(naux.getNombre()).append("\"];\n");
             aaux = naux.adyacencia;
             while (aaux != null) {
                 //System.out.println("-"+aaux.peso+"-> "+aaux.adyacencia.nombre);
-                dotsorce.append(naux.getNombre()).append(" -> ").append(aaux.adyacencia.nombre).append("[label=\"").append(aaux.peso).append("\"];\n");
+                auxs2.append(naux.getNombre()).append(" -> ").append(aaux.adyacencia.nombre).append("[label=\"").append(aaux.peso).append("\"];\n");
                 aaux = aaux.siguiente;
             }
             naux = naux.siguiente;
-        } 
+        }
+        dotsorce.append(auxs1).append(auxs2);
     }
 
 }

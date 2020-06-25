@@ -199,7 +199,7 @@ public class CargaMasiva {
         ReadFile rd = new ReadFile();
         String out[] = rd.getText(rutaArchivo).replaceAll("\n", "").split("%");
         for (String out1 : out) {
-            String ruta[] = out1.split("/");
+            String ruta[] = out1.replaceAll("\r", "").split("/");
             if (ruta.length > 1) {
                 grafo.insertarArco(ruta[0], ruta[1], Integer.parseInt(ruta[2]));
             }
