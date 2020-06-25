@@ -24,9 +24,7 @@ public class CargaMasiva {
             return false;
         }
         ReadFile rf = new ReadFile();
-        String tmp = rf.getText(rutaArchivo);
-        tmp = tmp.replaceAll("\n", "");
-        String[] out = tmp.split(";");
+        String[] out = rf.getText(rutaArchivo).replaceAll("\n", "").split(";");
         for (String out1 : out) {
             Cliente ctemp = generarCliente(out1);
             tabla_lientes.insert(ctemp, ctemp.getDpi());
@@ -85,9 +83,7 @@ public class CargaMasiva {
             return false;
         }
         ReadFile rf = new ReadFile();
-        String tmp = rf.getText(rutaArchivo);
-        tmp = tmp.replaceAll("\n", "");
-        String[] out = tmp.split(";");
+        String[] out = rf.getText(rutaArchivo).replaceAll("\n", "").split(";");
         for (String out1 : out) {
             Vehiculo vh = generarVehiculo(out1);
             if (vh != null) {
@@ -131,4 +127,63 @@ public class CargaMasiva {
         return ve;
     }
 
+    //metodo para la carga masiva de conductores espera como parametro una listasdoblemente enlazada
+    //y un string para la ruta del archivo
+    public boolean cargarConductores(String rutaArchivo, DoubleLinkedList<Conductor> lDoble){
+        if ("".equals(rutaArchivo)) {
+            JOptionPane.showMessageDialog(null, "La Ruta del archivo esta vacia!");
+            return false;
+        }
+        if (lDoble == null) {
+            JOptionPane.showMessageDialog(null, "La lista no esta inicializada!");
+            return false;
+        }
+        ReadFile rd = new ReadFile();
+        String out[] = rd.getText(rutaArchivo).replaceAll("\n", "").split(";");
+        for (int i = 0; i < out.length; i++) {
+            lDoble.add_endc(generarCondutor(out[i]));
+        }
+        return true;
+    }
+    
+    //metodo privado donde se crea un un objeto de tipo Conductor con los datos ya seteandos y lo devuelve
+    //recibe como parametro una cadena string de tipo conductor
+    private Conductor generarCondutor(String conductor){
+        String con[] = conductor.split("%");
+        Conductor c = new Conductor();
+        for (int i = 0; i < con.length; i++) {
+            switch(i){
+                case 0:
+                    c.setDpi(Long.parseLong(con[i]));
+                    break;
+                case 1:
+                    c.setNombres(con[i]);
+                    break;
+                case 2:
+                    c.setApellidos(con[i]);
+                    break;
+                case 3:
+                    c.setTipo_licencia(con[i]);
+                    break;
+                case 4:
+                    c.setGenero(con[i]);
+                    break;
+                case 5:
+                    c.setFecha_na(con[i]);
+                    break;
+                case 6:
+                    c.setTelefono(con[i]);
+                    break;
+                case 7:
+                    c.setDireccion(con[i]);
+                    break;
+                default:
+                    System.out.println("Dato demas!\t"+con[i]);
+                    break;
+            }
+        }
+    return c;
+    }
+    
+    
 }

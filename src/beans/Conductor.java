@@ -10,17 +10,17 @@ public class Conductor extends Persona {
     public Conductor() {
     }
 
-    public Conductor(char tipo_licencia, long dpi, String nombres, String apellidos, String telefono, String direccion, String genero, String fecha_na) {
+    public Conductor(String tipo_licencia, long dpi, String nombres, String apellidos, String telefono, String direccion, String genero, String fecha_na) {
         super(dpi, nombres, apellidos, telefono, direccion, genero, fecha_na);
         this.tipo_licencia = tipo_licencia;
     }
 
     
-    public char getTipo_licencia() {
+    public String getTipo_licencia() {
         return tipo_licencia;
     }
 
-    public void setTipo_licencia(char tipo_licencia) {
+    public void setTipo_licencia(String tipo_licencia) {
         this.tipo_licencia = tipo_licencia;
     }
 
@@ -94,5 +94,5 @@ public class Conductor extends Persona {
         this.fecha_na = fecha_na;
     }
     
-    private char tipo_licencia;
+    private String tipo_licencia;
 }
