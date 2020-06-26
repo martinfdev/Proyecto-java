@@ -104,18 +104,18 @@ public class Init {
 //        for (int i = 0; i < ls.getSize(); i++) {
 //            System.out.println(ls.getData().getDpi());
 //        }
-        Grafo gr = new Grafo();    
-        gr.insertarArco("Oviedo", "Bilbao", 304);
-        gr.insertarArco("Bilbao", "Zaragoza", 324);
-        gr.insertarArco("Bilbao", "Madrid", 395);
-        gr.insertarArco("Bilbao", "Valladolid", 280);
-        gr.insertarArco("Zaragoza", "Barcelona", 296);
-        gr.insertarArco("Barcelona", "Gerona", 100);
-        gr.insertarArco("Zaragoza", "Madrid", 325);
+//        Grafo gr = new Grafo();    
+//        gr.insertarArco("Oviedo", "Bilbao", 304);
+//        gr.insertarArco("Bilbao", "Zaragoza", 324);
+//        gr.insertarArco("Bilbao", "Madrid", 395);
+//        gr.insertarArco("Bilbao", "Valladolid", 280);
+//        gr.insertarArco("Zaragoza", "Barcelona", 296);
+//        gr.insertarArco("Barcelona", "Gerona", 100);
+//        gr.insertarArco("Zaragoza", "Madrid", 325);
         //gr.listaAdyacencia();
         //cm.cargarRutas("/home/pedro/Documents/NetBeansProjects/[EDD]Proyecto2_201700656/Rutas", gr);
 //        gr.reporte();
-        gr.recorridoAnchura("");
+//        gr.recorridoAnchura("");
 //        LinkedList<String> ls = new LinkedList<>();
 //        ls.add_queue("1");
 //        ls.add_queue("2");
