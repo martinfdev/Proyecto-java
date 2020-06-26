@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package estructuras;
 
 import javax.swing.JOptionPane;
@@ -30,7 +25,7 @@ public class LinkedList<T> {
 
     //devuelve un booleano con valor true si la la lista esta vacia
     public boolean isEmpty() {
-        return head == null && last == null;
+        return head == null;
     }
 
     //metodo para insertar un nodo dentro de la lista pide como parametro un nodo
@@ -101,8 +96,8 @@ public class LinkedList<T> {
     }
 
     //metodo para borrar en la cabeza de la lista
-    public void delete_head() {
-        deleteNode(head);
+    public T delete_head() {
+        return del_head();
     }
 
     //metodo para borrar con parametro
@@ -142,6 +137,20 @@ public class LinkedList<T> {
             return null;
         }
         return null;
+    }
+
+    private T del_head() {
+        T dtmp;
+        if (head == null) {
+            System.out.println(isEmpty());
+            JOptionPane.showMessageDialog(null, "La lista esta vacia!");
+            return null;
+        }else{
+            dtmp = head.getData();
+            head = head.next;
+            size--;
+            return dtmp;
+        }
     }
 
     public Node getHead() {

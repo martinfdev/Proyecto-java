@@ -68,7 +68,7 @@ public class Report {
         graph.addln(graph.start_graph());
         graph.addln("rankdir=LR;");
         graph.addln("node [shape=plaintext];");
-        graph.addln("edge[color=red];");
+        graph.addln("edge[color=blue];");
         get_dot_grafos(dotsource, inicio);
         graph.add(dotsource.toString());
         graph.add(graph.end_graph());

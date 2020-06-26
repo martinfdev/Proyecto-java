@@ -11,4 +11,10 @@ package beans;
  */
 public class Viaje {
     
+    
+    private String origen, destino, fehca_hora;
+    private Cliente cliente;
+    private Conductor conductor;
+    private Vehiculo vehiculo;
+    private Ruta ruta;
 }

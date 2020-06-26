@@ -21,11 +21,11 @@ public class Init {
         System.out.println(htclientes.search(2574151141308L).getDpi());
         System.out.println("-------");
          */
-       // ReadFile rf = new ReadFile();
-       // System.out.println(rf.getText("/home/pedro/Documents/NetBeansProjects/[EDD]Proyecto2_201700656/Clientes"));
-       // CargaMasiva cm = new CargaMasiva();
-         //  cm.cargarClientes("/home/pedro/Documents/NetBeansProjects/[EDD]Proyecto2_201700656/Clientes", htclientes);
-         //  htclientes.graphHashTable();     
+        // ReadFile rf = new ReadFile();
+        // System.out.println(rf.getText("/home/pedro/Documents/NetBeansProjects/[EDD]Proyecto2_201700656/Clientes"));
+        // CargaMasiva cm = new CargaMasiva();
+        //  cm.cargarClientes("/home/pedro/Documents/NetBeansProjects/[EDD]Proyecto2_201700656/Clientes", htclientes);
+        //  htclientes.graphHashTable();     
 
         //    String p1= "654CRV", p2 ="876GDW", p3 ="345RTX";
         //    
@@ -35,7 +35,7 @@ public class Init {
         //        }else
         //            System.out.println(p1.compareToIgnoreCase(p2));
 //        BTree ab = new BTree(5);
-//        CargaMasiva cm = new CargaMasiva();
+        CargaMasiva cm = new CargaMasiva();
 //        cm.cargarVehiculos("/home/pedro/Documents/NetBeansProjects/[EDD]Proyecto2_201700656/vehiculos", ab);
 //        ab.recorrer();
 //           Vehiculo v1, v2, v3, v4, v5, v6, v7;
@@ -104,18 +104,42 @@ public class Init {
 //        for (int i = 0; i < ls.getSize(); i++) {
 //            System.out.println(ls.getData().getDpi());
 //        }
-//        Grafo gr = new Grafo();    
-//        gr.insertarArco("Oviedo", "Bilbao", 304);
-//        gr.insertarArco("Bilbao", "Zaragoza", 324);
-//        gr.insertarArco("Bilbao", "Madrid", 395);
-//        gr.insertarArco("Bilbao", "Valladolid", 280);
-//        gr.insertarArco("Zaragoza", "Barcelona", 296);
-//        gr.insertarArco("Barcelona", "Gerona", 100);
-//        gr.insertarArco("Zaragoza", "Madrid", 325);
+        Grafo gr = new Grafo();    
+        gr.insertarArco("Oviedo", "Bilbao", 304);
+        gr.insertarArco("Bilbao", "Zaragoza", 324);
+        gr.insertarArco("Bilbao", "Madrid", 395);
+        gr.insertarArco("Bilbao", "Valladolid", 280);
+        gr.insertarArco("Zaragoza", "Barcelona", 296);
+        gr.insertarArco("Barcelona", "Gerona", 100);
+        gr.insertarArco("Zaragoza", "Madrid", 325);
         //gr.listaAdyacencia();
-//        cm.cargarRutas("/home/pedro/Documents/NetBeansProjects/[EDD]Proyecto2_201700656/Rutas", gr);
+        //cm.cargarRutas("/home/pedro/Documents/NetBeansProjects/[EDD]Proyecto2_201700656/Rutas", gr);
 //        gr.reporte();
+        gr.recorridoAnchura("");
+//        LinkedList<String> ls = new LinkedList<>();
+//        ls.add_queue("1");
+//        ls.add_queue("2");
+//        ls.add_queue("3");
+//        ls.add_queue("4");
+//        ls.add_queue("5");
+//        ls.add_queue("6");
+//        ls.add_queue("7");
+//        ls.add_queue("8");
+//        Node<String> tmp = ls.getHead();
+//        while (tmp != null) {
+//            System.out.println(tmp.getData());
+//            tmp = tmp.next;
+//        }
+//        ls.delete_head();
+//        ls.delete_head();
+//        ls.delete_head();
+//        ls.delete_head();
+//        ls.delete_head();
+//        System.out.println("\n");
+//        Node<String> tmp2 = ls.getHead();
+//        while (tmp2 != null) {
+//            System.out.println(tmp2.getData());
+//            tmp2 = tmp2.next;
+//        }
     }
-    
-
 }
