@@ -141,5 +141,10 @@ public class Init {
 //            System.out.println(tmp2.getData());
 //            tmp2 = tmp2.next;
 //        }
+//1c91a3a29a89b61b15adf8240cbb7f9ca0b7e35e38fc9b9a52b01c2629666752
+    Block b = new Block("1c91a3a29a89b61b15adf8240cbb7f9ca0b7e35e38fc9b9a52b01c2629666752", "M123MGT", "26-06-20::20:06");
+       // b.mineBlock(4);
+        System.out.println(b.getHash());
+        System.out.println(b.getTimestamp());
     }
 }

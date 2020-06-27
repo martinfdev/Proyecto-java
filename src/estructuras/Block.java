@@ -10,30 +10,29 @@ import java.util.Calendar;
  */
 public class Block {
 
-    private final int index;
-    private final String Timestamp;
+    private final int index = 0;
     private int Nonce;
     private String data;
-    private final String preovioushash;
-    private String hash;
+    private String preovioushash;
+    private String hash, placa, timestamp;;
 
-    public Block(int index, String previoshash, String data) {
-        this.index = index;
-        this.preovioushash = previoshash;
-        this.Timestamp = getDate();
-        this.data = data;
+    public Block(String preovioushash, String placa, String timestamp) {
+        this.preovioushash = preovioushash;
+        this.placa = placa;
+        this.timestamp = timestamp;
         this.hash = calculateHash();
+       // System.out.println(getDate());
     }
-
+       
     //funcion util para obtener el timestamp
     private String getDate() {
-        String timestamp;
-        return timestamp = new SimpleDateFormat("dd-MM-yy-::hh:mm:ss").format(Calendar.getInstance().getTime());
+        String date;
+        return date = new SimpleDateFormat("dd-MM-YY::HH:MM").format(Calendar.getInstance().getTime());
     }
 
     //funcion que devuelve el hash minado
     private String calculateHash() {
-        String tohashblock = index + Timestamp + preovioushash + data + Nonce;
+        String tohashblock = placa+timestamp+preovioushash;
         String calhash = Encrypted.getSHA256(tohashblock);
         return calhash;
     }
@@ -53,7 +52,7 @@ public class Block {
     }
 
     public String getTimestamp() {
-        return Timestamp;
+        return timestamp;
     }
 
     public int getNonce() {
@@ -61,7 +60,7 @@ public class Block {
     }
 
     public String getData() {
-        return data;
+        return data = placa+timestamp+preovioushash;
     }
 
     public String getPreovioushash() {
@@ -69,7 +68,7 @@ public class Block {
     }
 
     public String getHash() {
-        return hash;
+        return calculateHash();
     }
 
     public void setData(String data) {
