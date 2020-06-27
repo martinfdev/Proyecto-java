@@ -1,5 +1,6 @@
 package estructuras;
 
+import beans.Viaje;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -11,16 +12,13 @@ public class Block {
 
 //    private final int index = 0;
     private int Nonce;
+    private Viaje viaje;
     private String data;
     private String preovioushash;
-    private String hash, placa, timestamp;
+    private String hash;
 
-    ;
-
-    public Block(String preovioushash, String placa, String timestamp) {
+    public Block(String preovioushash, Viaje viaje) {
         this.preovioushash = preovioushash;
-        this.placa = placa;
-        this.timestamp = timestamp;
         this.hash = calculateHash();
         // System.out.println(getDate());
     }
@@ -33,7 +31,7 @@ public class Block {
 
     //funcion que devuelve el hash minado
     private String calculateHash() {
-        String tohashblock = placa + timestamp + preovioushash;
+        String tohashblock = viaje.getVehiculo().getPlaca() + viaje.getFecha_hora() + preovioushash;
         //String caclhash = Encrypted.getSHA256(tohashblock);
         String calchash = Encrypted.getMD5(tohashblock);
         return calchash;
@@ -53,22 +51,26 @@ public class Block {
 //        return index;
 //    }
 
-    public String getTimestamp() {
-        return timestamp;
-    }
+//    public String getTimestamp() {
+//        return timestamp;
+//    }
 
     public int getNonce() {
         return Nonce;
     }
 
     public String getData() {
-        return data = placa + timestamp + preovioushash;
+        return data = viaje.getVehiculo().getPlaca() + viaje.getFecha_hora() + preovioushash;
     }
 
     public String getPreovioushash() {
         return preovioushash;
     }
 
+    public void setPreovioushash(String preovioushash) {
+        this.preovioushash = preovioushash;
+    }
+    
     public String getHash() {
         return calculateHash();
     }
