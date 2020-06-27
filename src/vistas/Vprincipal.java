@@ -11,9 +11,9 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  *
  * @author pedro
  */
-public final class Principal extends javax.swing.JFrame {
+public final class Vprincipal extends javax.swing.JFrame {
 
-    public Principal(BlockChain blockchain, Grafo grafo, HashTable<Cliente> tablahash, BTree btree) {
+    public Vprincipal(BlockChain blockchain, Grafo grafo, HashTable<Cliente> tablahash, BTree btree) {
         initComponents();
         this.blockchain = blockchain;
         this.grafo = grafo;
@@ -44,7 +44,6 @@ public final class Principal extends javax.swing.JFrame {
     //metodo para buscar la ubicacion del archivo de carga devuelva la ruta del archivo
     //como una cadena
     private String getPathFile() {
-        //    File f;
         JFileChooser file = new JFileChooser();
         file.setCurrentDirectory(new File(System.getProperty("user.home")));
         file.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -52,7 +51,6 @@ public final class Principal extends javax.swing.JFrame {
         file.setAcceptAllFileFilterUsed(true);
         int option = file.showOpenDialog(this);
         if (option == JFileChooser.APPROVE_OPTION) {
-            //      f = file.getSelectedFile();
             String path = file.getSelectedFile().getPath();
             return path;
         }
@@ -73,6 +71,11 @@ public final class Principal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         btnCliente.setText("CLIENTES");
+        btnCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClienteActionPerformed(evt);
+            }
+        });
 
         btnVehiculos.setText("VEHICULOS");
 
@@ -145,6 +148,12 @@ public final class Principal extends javax.swing.JFrame {
             loadRoutes();
         }
     }//GEN-LAST:event_btnGrafoActionPerformed
+
+    private void btnClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteActionPerformed
+        Vcliente vc = new Vcliente(tablahash, this);
+        vc.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnClienteActionPerformed
     private boolean bgrafo = false;
     private BlockChain blockchain;
     private Grafo grafo;

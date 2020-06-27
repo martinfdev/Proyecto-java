@@ -14,25 +14,14 @@ public class Init {
         btree = new BTree(5); //arbol de grado 5
         rutas = new Grafo();
         tablahash = new HashTable<>(37); //tabla hash con tamanio inicial del vector igual 37
-        Principal p = new Principal(blockchain, rutas, tablahash, btree);
+        Vprincipal p = new Vprincipal(blockchain, rutas, tablahash, btree);
         p.setVisible(true);
         
 // test();
     }
 
     //metod para probar las estructuras miestras se van implementando
-    private void test() {
-        //  HashTable<Cliente> htclientes = new HashTable<>(37);
-        /* htclientes.insert(new Cliente(2574151141308L, "", "", "", "", 'M'), 2574151141308L);
-        System.out.println(htclientes.search(2574151141308L).getDpi());
-        System.out.println("-------");
-         */
-        // ReadFile rf = new ReadFile();
-        // System.out.println(rf.getText("/home/pedro/Documents/NetBeansProjects/[EDD]Proyecto2_201700656/Clientes"));
-        // CargaMasiva cm = new CargaMasiva();
-        //  cm.cargarClientes("/home/pedro/Documents/NetBeansProjects/[EDD]Proyecto2_201700656/Clientes", htclientes);
-        //  htclientes.graphHashTable();     
-
+    private void test() {   
         //    String p1= "654CRV", p2 ="876GDW", p3 ="345RTX";
         //    
         //        if (p1.compareTo(p2)<0) {

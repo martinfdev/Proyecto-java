@@ -27,11 +27,11 @@ public class HashTable<T> {
 
     //funcion util que devuelve el porcentaje ocupado
     private float busy_porcent() {
-       return ((float)busy / (float)size)*100;
+        return ((float) busy / (float) size) * 100;
     }
 
     //funcion util para insertar un elemento dentro del array
-    public void insert(T data, long key) {
+    public void insert(Cliente data, long key) {
         if (busy_porcent() <= 75.00) {
             int hash = function_hash(key);
             if (this.array[hash] == null) {
@@ -53,8 +53,9 @@ public class HashTable<T> {
         if (array[i] != null) {
             DoubleLinkedList<Cliente> tmp = array[i].getList_client();
             for (int j = 0; j < tmp.getSize(); j++) {
-                if (tmp.getData().getDpi() == key) {
-                    return tmp.getData();
+                Cliente ctmp = tmp.getData();
+                if (ctmp.getDpi() == key) {
+                    return ctmp;
                 }
             }
         }
@@ -70,6 +71,8 @@ public class HashTable<T> {
                 Cliente temp = tmp.getData();
                 if (temp.getDpi() == key) {
                     tmp.delete_data(temp);
+                    if(tmp.getSize()==0)
+                        array[i]=null;
                     return true;
                 }
             }
@@ -81,29 +84,53 @@ public class HashTable<T> {
     public void setSizeVector(int sizeVector) {
         this.size = sizeVector;
     }*/
-    
-    
     //genera el grafico de la tabla hash
-    public void graphHashTable() {
+    public String graphHashTable() {
         Report re = new Report();
-        re.reportHashTable(array);
+        return re.reportHashTable(array);
     }
 
     //metodo que comprueba si es un numero primo o impar
     //esto para evitar que sea un numero par,  esto para evitar demesiadas colisiones
     private void impar() {
         if (size % 2 == 0) {
-           size = size - 1;
+            size = size - 1;
         }
     }
 
     //metodo que genera el siguiente vector si el primero supera el 
     //75% de capacidadad
     private void new_vector() {
-        size = size*2;
+        size = size + 37;
         NodoHash[] tmp = array;
         impar();
-        array = new NodoHash[size];
-        System.arraycopy(tmp, 0, array, 0, tmp.length); 
+        array = new NodoHash[size + 1];
+        busy = 0;
+        DoubleLinkedList<Cliente> ltmp;
+        for (NodoHash tmp1 : tmp) {
+            if (tmp1 != null) {
+                ltmp = tmp1.getList_client();
+                for (int j = 0; j < ltmp.getSize(); j++) {
+                    Cliente ctmp = ltmp.getData();
+                    insert(ctmp, ctmp.getDpi());
+                }
+            }
+        }
     }
+
+    //metodo que devuelve el tamanio del vector utilzado
+    public int getSize() {
+        return size;
+    }
+
+    //metodo que devuelve una lista doble en el indice i que pide como parametro
+    public DoubleLinkedList<T> getIndexI(int i) {
+        if (i < size) {
+            if (array[i] != null) {
+                return array[i].list_client;
+            }
+        }
+        return null;
+    }
+
 }

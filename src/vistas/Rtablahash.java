@@ -1,27 +1,30 @@
 package vistas;
 
-import estructuras.Grafo;
+import beans.Cliente;
+import estructuras.HashTable;
+import estructuras.Report;
 
 /**
  *
  * @author pedro
  */
-public class Rgrafo extends javax.swing.JFrame {
+public class Rtablahash extends javax.swing.JFrame {
 
-    public Rgrafo(Grafo grafo, Vprincipal vPrincipal) {
+    public Rtablahash(HashTable<Cliente> tablahash, Vcliente vCliente) {
         initComponents();
-        this.vPrincipal = vPrincipal;
-        this.grafo = grafo;
+        this.vCliente = vCliente;
+        this.tablahash = tablahash;
         this.setLocationRelativeTo(null);
         this.setResizable(false);
-        setTitle("Grafo de Rutas");
+        setTitle("Reporte Tabla Hash de Clientes");
         report();
         jTextPane1.setEditable(false);
     }
-    
+
     //metodo para generar el report
-    private void report(){
-        String url_image = grafo.reporte();
+    private void report() {
+        Report r = new Report();
+        String url_image = tablahash.graphHashTable();
         String content = "<img src=\"file:" + url_image + "\">";
         jTextPane1.setContentType("text/html");
         jTextPane1.setText(content);
@@ -63,12 +66,12 @@ public class Rgrafo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        vPrincipal.setVisible(true);
+        vCliente.setVisible(true);
         dispose();
     }//GEN-LAST:event_formWindowClosing
 
-    private Grafo grafo;
-    private Vprincipal vPrincipal;
+    private HashTable<Cliente> tablahash;
+    private Vcliente vCliente;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane2;
