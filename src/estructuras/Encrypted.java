@@ -16,12 +16,12 @@ public class Encrypted {
     }
 
     //fucion util para generar hash MD5
-    public String getMD5(String encrypPass) {
+    public static String getMD5(String string) {
         String crypted = null;
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
 //            md.update();
-            byte[] hash = md.digest(encrypPass.getBytes(StandardCharsets.UTF_8));
+            byte[] hash = md.digest(string.getBytes(StandardCharsets.UTF_8));
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < hash.length; i++) {
                 sb.append(Integer.toString((hash[i] & 0xff) + 0x100, 16).substring(1));
@@ -58,4 +58,25 @@ public class Encrypted {
     public static String getDificultyString(int difficulty) {
         return new String(new char[difficulty]).replace('\0', '0');
     }
+    
+  //funcion util para generar hash SHA-256
+    public static String getSHA1(String stringToHash) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-1");
+            //Applies sha256 to our input, 
+            byte[] hash = digest.digest(stringToHash.getBytes("UTF-8"));
+            StringBuilder hexString = new StringBuilder(); // This will contain hash as hexidecimal
+            for (int i = 0; i < hash.length; i++) {
+                String hex = Integer.toHexString(0xff & hash[i]);
+                if (hex.length() == 1) {
+                    hexString.append('0');
+                }
+                hexString.append(hex);
+            }
+            return hexString.toString();
+        } catch (UnsupportedEncodingException | NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+    }   
+    
 }

@@ -1,4 +1,3 @@
-
 package estructuras;
 
 import java.text.SimpleDateFormat;
@@ -10,20 +9,22 @@ import java.util.Calendar;
  */
 public class Block {
 
-    private final int index = 0;
+//    private final int index = 0;
     private int Nonce;
     private String data;
     private String preovioushash;
-    private String hash, placa, timestamp;;
+    private String hash, placa, timestamp;
+
+    ;
 
     public Block(String preovioushash, String placa, String timestamp) {
         this.preovioushash = preovioushash;
         this.placa = placa;
         this.timestamp = timestamp;
         this.hash = calculateHash();
-       // System.out.println(getDate());
+        // System.out.println(getDate());
     }
-       
+
     //funcion util para obtener el timestamp
     private String getDate() {
         String date;
@@ -32,9 +33,10 @@ public class Block {
 
     //funcion que devuelve el hash minado
     private String calculateHash() {
-        String tohashblock = placa+timestamp+preovioushash;
-        String calhash = Encrypted.getSHA256(tohashblock);
-        return calhash;
+        String tohashblock = placa + timestamp + preovioushash;
+        //String caclhash = Encrypted.getSHA256(tohashblock);
+        String calchash = Encrypted.getMD5(tohashblock);
+        return calchash;
     }
 
     //funcion para minar el bloque
@@ -47,9 +49,9 @@ public class Block {
         System.out.println("Block Minado!!! : " + hash);
     }
 
-    public int getIndex() {
-        return index;
-    }
+//    public int getIndex() {
+//        return index;
+//    }
 
     public String getTimestamp() {
         return timestamp;
@@ -60,7 +62,7 @@ public class Block {
     }
 
     public String getData() {
-        return data = placa+timestamp+preovioushash;
+        return data = placa + timestamp + preovioushash;
     }
 
     public String getPreovioushash() {
@@ -73,5 +75,6 @@ public class Block {
 
     public void setData(String data) {
         this.data = data;
-    }     
+    }
+
 }

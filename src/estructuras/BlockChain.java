@@ -5,11 +5,6 @@
  */
 package estructuras;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
-
 /**
  *
  * @author pedro
@@ -22,7 +17,6 @@ public class BlockChain {
 
     public BlockChain() {
         lblock = new DoubleLinkedList<>();
-        this.index = lblock.getSize();
     }
 
     //crear el bloque genesis 
@@ -57,5 +51,10 @@ public class BlockChain {
     public DoubleLinkedList<Block> getListBlock(){
         return lblock;
     }
-
+    
+    //retorna el hash de ultimo elemento insertao en la lista
+    public String getPreviosHas(){
+        Node<Block> aux = lblock.getEnd();
+        return aux.getData().getHash();
+    }
 }

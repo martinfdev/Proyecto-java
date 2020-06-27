@@ -1,11 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package estructuras;
-
-import beans.Conductor;
 
 /**
  *
@@ -140,7 +133,7 @@ public class DoubleLinkedList<T> {
             newnode.next = head;
             head.back = newnode;
             queue.next = newnode;
-            newnode.back= queue;
+            newnode.back = queue;
             head = newnode;
             size++;
         } //si n es igual a la cola de la lista e in es true se insertaa al final de la lista
@@ -159,16 +152,16 @@ public class DoubleLinkedList<T> {
             newnode.next = n;
             size++;
         }
-        
+
     }
-    
+
     //metodo para agregar al principio en una lista comportamiento circular 
-    public void add_headc(T data){
+    public void add_headc(T data) {
         insertC(head, data, false);
     }
-    
+
     //metodo para insertar al final en una lista de coportamiento circular    
-    public void add_endc(T data){
+    public void add_endc(T data) {
         insertC(head, data, true);
     }
 
@@ -181,7 +174,15 @@ public class DoubleLinkedList<T> {
     public void delete_data(T data) {
         delete(search(data));
     }
-     
+
     //metodo que devuelve el nodo cabeza
-    public Node<T> getHead(){return head; }   
+    public Node<T> getHead() {
+        return head;
+    }
+
+    //metodo que devuelve el ultimo nodo insertado en la lista
+    public Node<T> getEnd() {
+        return queue;
+    }
+
 }

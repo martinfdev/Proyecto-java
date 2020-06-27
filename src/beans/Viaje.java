@@ -2,6 +2,8 @@ package beans;
 
 import estructuras.LinkedList;
 import estructuras.NodoG;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 /**
  *
@@ -11,14 +13,20 @@ public class Viaje {
 
     public Viaje(){}
     
-    public Viaje(String origen, String destino, String fehca_hora, Cliente cliente, Conductor conductor, Vehiculo vehiculo, LinkedList<NodoG> ruta) {
+    public Viaje(String origen, String destino, Cliente cliente, Conductor conductor, Vehiculo vehiculo, LinkedList<NodoG> ruta) {
         this.origen = origen;
         this.destino = destino;
-        this.fecha_hora = fehca_hora;
+        this.fecha_hora = getDate();
         this.cliente = cliente;
         this.conductor = conductor;
         this.vehiculo = vehiculo;
         this.ruta = ruta;
+    }
+    
+     //funcion util para obtener el timestamp
+    private String getDate() {
+        String date;
+        return date = new SimpleDateFormat("dd-MM-YY::HH:MM").format(Calendar.getInstance().getTime());
     }
 
     public String getOrigen() {
@@ -41,8 +49,8 @@ public class Viaje {
         return fecha_hora;
     }
 
-    public void setFecha_hora(String fehca_hora) {
-        this.fecha_hora = fehca_hora;
+    public void setFecha_hora() {
+        this.fecha_hora = getDate();
     }
 
     public Cliente getCliente() {
@@ -76,8 +84,6 @@ public class Viaje {
     public void setRuta(LinkedList<NodoG> ruta) {
         this.ruta = ruta;
     }
-    
-    
     
     private String origen, destino, fecha_hora;
     private Cliente cliente;
