@@ -130,7 +130,7 @@ public class CargaMasiva {
     //metodo para la carga masiva de conductores espera como parametro una listasdoblemente enlazada
     //y un string para la ruta del archivo
     public boolean cargarConductores(String rutaArchivo, DoubleLinkedList<Conductor> lDoble) {
-        if ("".equals(rutaArchivo)) {
+        if (rutaArchivo==null) {
             JOptionPane.showMessageDialog(null, "La Ruta del archivo esta vacia!");
             return false;
         }
@@ -188,7 +188,7 @@ public class CargaMasiva {
     //metodo para la carga masiva de rutas pide como parametro la ruta del archivo 
     //y un objeto de tipo Grafo
     public boolean cargarRutas(String rutaArchivo, Grafo grafo) {
-        if ("".equals(rutaArchivo)) {
+        if (rutaArchivo==null) {
             JOptionPane.showMessageDialog(null, "La Ruta del archivo esta vacia!");
             return false;
         }

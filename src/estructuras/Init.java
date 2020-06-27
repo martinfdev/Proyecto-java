@@ -1,8 +1,7 @@
 package estructuras;
 
 import beans.Cliente;
-import beans.Conductor;
-import beans.Vehiculo;
+import vistas.*;
 
 /**
  *
@@ -11,7 +10,14 @@ import beans.Vehiculo;
 public class Init {
 
     public Init() {
-        test();
+        blockchain = new BlockChain();
+        btree = new BTree(5); //arbol de grado 5
+        rutas = new Grafo();
+        tablahash = new HashTable<>(37); //tabla hash con tamanio inicial del vector igual 37
+        Principal p = new Principal(blockchain, rutas, tablahash, btree);
+        p.setVisible(true);
+        
+// test();
     }
 
     //metod para probar las estructuras miestras se van implementando
@@ -35,7 +41,7 @@ public class Init {
         //        }else
         //            System.out.println(p1.compareToIgnoreCase(p2));
 //        BTree ab = new BTree(5);
-        CargaMasiva cm = new CargaMasiva();
+//        CargaMasiva cm = new CargaMasiva();
 //        cm.cargarVehiculos("/home/pedro/Documents/NetBeansProjects/[EDD]Proyecto2_201700656/vehiculos", ab);
 //        ab.recorrer();
 //           Vehiculo v1, v2, v3, v4, v5, v6, v7;
@@ -142,4 +148,9 @@ public class Init {
 //            tmp2 = tmp2.next;
 //        }
     }
+    
+    private static BlockChain blockchain;
+    private static Grafo rutas;
+    private static HashTable<Cliente> tablahash;
+    private static BTree btree;
 }
