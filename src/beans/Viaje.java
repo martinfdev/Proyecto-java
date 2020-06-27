@@ -5,6 +5,9 @@
  */
 package beans;
 
+import estructuras.LinkedList;
+import estructuras.NodoG;
+
 /**
  *
  * @author pedro
@@ -16,5 +19,5 @@ public class Viaje {
     private Cliente cliente;
     private Conductor conductor;
     private Vehiculo vehiculo;
-    private Ruta ruta;
+    private LinkedList<NodoG> ruta;
 }

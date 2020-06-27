@@ -177,7 +177,7 @@ public class Grafo {
     
     
     //metodo que determina el camino mas simple y ruta con el menor coste
-    //Algoritomo de Dijkstra
+    
     private LinkedList<NodoG> dijkstra(NodoG origen, NodoG destino){
         
     return null;
