@@ -82,15 +82,7 @@ public class Vcliente extends javax.swing.JFrame {
             new String [] {
                 "DPI", "Nombre"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        ));
         tblBusqueda.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblBusquedaMouseClicked(evt);
@@ -372,6 +364,7 @@ public class Vcliente extends javax.swing.JFrame {
             txtDireccion.setText(tmp.getDireccion());
             txtNombre.setText(tmp.getNombres());
             txtGenero.setText(tmp.getGenero());
+            disbleTxt();
         } else {
             System.out.println("No encontro dpi " + dpi);
         }

@@ -17,7 +17,7 @@ public class NodoB {
     }
 
     //una funcion que recorre todo los nodos enraizados en el subarbol de este nodo
-    protected void recorrerN() {
+    protected void recorrerN(LinkedList<Vehiculo> ls) {
         int i;
         // Hay n_clave claves y n_clave + 1 hijos, atraviesa n_clave claves
         // y primero n_clave hijos
@@ -25,27 +25,30 @@ public class NodoB {
             // Si esto no es hoja, entonces antes de imprimir la clave [i],
             // atraviesa el subárbol enraizado con el hijo hijo[i].
             if (es_hoja == false) {
-                hijo[i].recorrerN();
+                hijo[i].recorrerN(ls);
             }
-            System.out.println(llave[i].getPlaca() + " ");
+            if (ls != null) {
+                ls.add_queue(llave[i]);
+            }
+            //System.out.println(llave[i].getPlaca() + " ");
         }
         //Imprime el subárbol enraizado derecho con el último hijo
         if (es_hoja == false) {
-            hijo[i].recorrerN();
+            hijo[i].recorrerN(ls);
         }
     }
 
     //una funcion que busca la clave dentro en un subarbol enraizado con este nodo
     public Vehiculo buscarN(String placa) {
-        // Encuentra la primera clave mayor o igual a k
+        // Encuentra la primera clave mayor o igual a placa
         int i = 0;
         while (i < n_clave && placa.compareToIgnoreCase(llave[i].getPlaca()) > 0) {
             i++;
         }
 
         try {
-            // Si la clave encontrada es igual a k, devuelve este nodo
-            if (llave[i].getPlaca() == placa) {
+            // Si la clave encontrada es igual a placa, devuelve este nodo
+            if (llave[i].getPlaca().equals(placa)) {
                 return this.llave[i];
             }
         } catch (Exception e) {
@@ -62,7 +65,7 @@ public class NodoB {
     }
 
     // Una función que devuelve el índice de la primera clave que es mayor
-    // o igual a k
+    // o igual a placa
     private int utlimoIndice(String placa) {
         int indice = 0;
         while (indice < this.n_clave && llave[indice].getPlaca().compareToIgnoreCase(placa) < 0) {
@@ -118,48 +121,45 @@ public class NodoB {
     // de y en la matriz secundaria C []. El niño debe estar lleno cuando esto
     // la función se llama
     void dividirEnHijos(int i, NodoB ndo) {
-        // Create a new node which is going to store (m-1) keys 
-        // of y 
+       
         NodoB z = new NodoB(ndo.m, ndo.es_hoja);
         z.n_clave = m - 1;
 
-        // Copy the last (m-1) keys of y to z 
+ 
         for (int j = 0; j < m - 1; j++) {
             z.llave[j] = ndo.llave[j + m];
         }
 
-        // Copy the last m children of y to z 
+  
         if (ndo.es_hoja == false) {
             for (int j = 0; j < m; j++) {
                 z.hijo[j] = ndo.hijo[j + m];
             }
         }
-        // Reduce the number of keys in y 
+     
         ndo.n_clave = m - 1;
 
-        // Since this node is going to have a new hijo, 
-        // create space of new hijo 
+ 
         for (int j = n_clave; j >= i + 1; j--) {
             hijo[j + 1] = hijo[j];
         }
 
-        // Link the new hijo to this node 
+ 
         hijo[i + 1] = z;
 
-        // A llave of y will move to this node. Find location of 
-        // new llave and move all greater keys one space ahead 
+
         for (int j = n_clave - 1; j >= i; j--) {
             llave[j + 1] = llave[j];
         }
 
-        // Copy the middle llave of y to this node 
+
         llave[i] = ndo.llave[m - 1];
 
-        // Increment count of keys in this node 
+
         n_clave = n_clave + 1;
     }
 
-    // Una función de contenedor para eliminar la clave k en el subárbol enraizado con
+    // Una función de contenedor para eliminar la clave placa en el subárbol enraizado con
     // este nodo.
     public void borrar(String placa) {
         int indicex = utlimoIndice(placa);
@@ -206,12 +206,12 @@ public class NodoB {
     // este nodo que es una hoja
     private void borrarDeHoja(int indice) {
 
-        // Move all the keys after the indicex-th pos one place backward 
+        
         for (int i = indice + 1; i < n_clave; ++i) {
             llave[i - 1] = llave[i];
         }
 
-        // Reduce the count of keys 
+
         n_clave--;
     }
 
@@ -220,24 +220,24 @@ public class NodoB {
     private void borrarDeNoHoja(int indicex) {
         String k_placa = llave[indicex].getPlaca();
 
-        // Si el hijo que precede a k (hijo [indicex]) tiene al menos m claves,
+        // Si el hijo que precede a k_placa (hijo [indicex]) tiene al menos m claves,
         // encuentra el predecesor 'pred' de k en el subárbol enraizado en
-        // hijo [indicex]. Reemplace k por pred. Eliminar recursivamente pred
+        // hijo [indicex]. Reemplace k_placa por pred. Eliminar recursivamente pred
         // en hijo [indicex]
         if (hijo[indicex].n_clave >= m) {
             Vehiculo pred = getPredecesor(indicex);
             llave[indicex] = pred;
             hijo[indicex].borrar(pred.getPlaca());
         } // Si el hijo hijo [indicex] tiene menos de m claves, examinar hijo[indicex + 1].
-        // Si hijo [indicex + 1] tiene al menos m claves, busque el sucesor 'succ' de k en
+        // Si hijo [indicex + 1] tiene al menos m claves, busque el sucesor 'succ' de k_placa en
         // el subárbol enraizado en hijo [indicex + 1]
-        // Reemplazar k por succ
+        // Reemplazar k_placa por succ
         // Elimina recursivamente succ en hijo[indicex + 1]
         else if (hijo[indicex + 1].n_clave >= m) {
             Vehiculo succ = getSucesor(indicex);
             llave[indicex] = succ;
             hijo[indicex + 1].borrar(succ.getPlaca());
-        } // Si tanto hijo[indicex] como hijo[indicex + 1] tienen menos de m claves, combinar k y todo hijo[indicex + 1] 
+        } // Si tanto hijo[indicex] como hijo[indicex + 1] tienen menos de m claves, combinar k_placa y todo hijo[indicex + 1] 
         // en hijo[indicex]
         // Ahora hijo[indicex] contiene claves 2t-1
         // Liberar hijo[indicex + 1] y eliminar recursivamente k de hijo[indicex]

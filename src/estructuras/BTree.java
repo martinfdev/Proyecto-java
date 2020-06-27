@@ -15,7 +15,7 @@ public class BTree {
 
     public void recorrer() {
         if (this.raiz != null) {
-            this.raiz.recorrerN();
+            this.raiz.recorrerN(null);
             System.out.println("");
         }
     }
@@ -72,7 +72,7 @@ public class BTree {
             return;
         }
         // // Llamar a la función remove para la raiz
-        raiz.borrar(placa);
+         raiz.borrar(placa);
 
         // Si el nodo raíz tiene 0 claves, hacer su primer hijo como la nueva raíz
         // si tiene un hijo, de lo contrario establecer la raiz como null
@@ -84,6 +84,15 @@ public class BTree {
                 raiz = raiz.hijo[0];
             }
         }
+    }
+    
+    public LinkedList<Vehiculo> getAllData(){
+        LinkedList<Vehiculo> ltmp = new LinkedList<>();
+        if (this.raiz != null) {
+            this.raiz.recorrerN(ltmp);
+            return ltmp;
+        }
+        return null;
     }
 
     private final int m; //grado del arbol
