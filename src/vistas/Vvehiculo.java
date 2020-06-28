@@ -15,16 +15,17 @@ import javax.swing.table.DefaultTableModel;
 public class Vvehiculo extends javax.swing.JFrame {
 
     /**
-     * @param tablahash
+     * @param tree
      * @param wm
      */
-    public Vvehiculo(BTree tablahash, Vprincipal wm) {
-        this.tree = tablahash;
+    public Vvehiculo(BTree tree, Vprincipal wm) {
+        this.tree = tree;
         this.wm = wm;
         initComponents();
         llenarTabla_no_vacio();
         this.setResizable(false);
         this.setLocationRelativeTo(null);
+        setTitle("Vehiculo");
         disbleTxt();
         flagedit = flagdelVehiculo = false;
     }
@@ -277,12 +278,13 @@ public class Vvehiculo extends javax.swing.JFrame {
                             .addComponent(txtEliminarPlaca)
                             .addComponent(txtDeletePlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(37, 37, 37)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnEditar)
-                    .addComponent(btnGuardarCambios)
-                    .addComponent(btnEliminar)
-                    .addComponent(btnCrearVehiculo)
-                    .addComponent(btnCarcaVehiculos))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnCarcaVehiculos)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnEditar)
+                        .addComponent(btnGuardarCambios)
+                        .addComponent(btnEliminar)
+                        .addComponent(btnCrearVehiculo)))
                 .addGap(25, 25, 25))
         );
 
@@ -310,6 +312,7 @@ public class Vvehiculo extends javax.swing.JFrame {
     private void btnCrearVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearVehiculoActionPerformed
         flagnewVehiculo = true;
         enableTxt();
+        clearTXT();
     }//GEN-LAST:event_btnCrearVehiculoActionPerformed
 
     private void btnCarcaVehiculosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarcaVehiculosActionPerformed
@@ -408,7 +411,7 @@ public class Vvehiculo extends javax.swing.JFrame {
                 if (tp1 == null) {
                     JOptionPane.showMessageDialog(null, "Vehiculo con Placa " + txtDeletePlaca.getText() + " eliminado!");
                     txtDeletePlaca.setText("");
-                     fill_table();
+                    fill_table();
                 }
             }
             if (!"".equalsIgnoreCase(txtPlaca.getText()) && !flagdelVehiculo) {
@@ -445,6 +448,8 @@ public class Vvehiculo extends javax.swing.JFrame {
 
     private void txtDeletePlacaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDeletePlacaKeyTyped
         flagdelVehiculo = true;
+        disbleTxt();
+        clearTXT();
     }//GEN-LAST:event_txtDeletePlacaKeyTyped
 
     protected void clearTXT() {

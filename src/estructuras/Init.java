@@ -1,6 +1,7 @@
 package estructuras;
 
 import beans.Cliente;
+import beans.Conductor;
 import vistas.*;
 
 /**
@@ -14,10 +15,11 @@ public class Init {
         btree = new BTree(5); //arbol de grado 5
         rutas = new Grafo();
         tablahash = new HashTable<>(37); //tabla hash con tamanio inicial del vector igual 37
-        Vprincipal p = new Vprincipal(blockchain, rutas, tablahash, btree);
+        lconductor = new DoubleLinkedList<>();
+        Vprincipal p = new Vprincipal(blockchain, rutas, tablahash, btree, lconductor);
         p.setVisible(true);
         
-// test();
+ //test();
     }
 
     //metod para probar las estructuras miestras se van implementando
@@ -67,6 +69,7 @@ public class Init {
         //        }
 //        DoubleLinkedList<Conductor> ls = new DoubleLinkedList<>();
 //        cm.cargarConductores("/home/pedro/Documents/NetBeansProjects/[EDD]Proyecto2_201700656/Conductores", ls);
+//        Report.reportListaDobleCircular(ls, "LDCConductores");
 //        Conductor c1, c2, c3, c4, c5, c6, c7, c8, c9;
 //        c1 = new Conductor('M', 9575131141301L, "", "", "", "", "", "");
 //        c2 = new Conductor('M', 4235131141302L, "", "", "", "", "", "");
@@ -142,4 +145,5 @@ public class Init {
     private static Grafo rutas;
     private static HashTable<Cliente> tablahash;
     private static BTree btree;
+    private static DoubleLinkedList<Conductor> lconductor;
 }

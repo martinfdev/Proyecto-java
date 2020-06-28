@@ -1,6 +1,6 @@
 package vistas;
 
-import beans.Cliente;
+import beans.Conductor;
 import estructuras.*;
 import java.io.File;
 import javax.swing.JFileChooser;
@@ -12,22 +12,22 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author pedro
  */
-public class Vcliente extends javax.swing.JFrame {
+public class Vconductor extends javax.swing.JFrame {
 
     /**
-     * @param tablahash
+     * @param ldc lista doblemente circular
      * @param wm
      */
-    public Vcliente(HashTable<Cliente> tablahash, Vprincipal wm) {
-        this.tablahash = tablahash;
+    public Vconductor(DoubleLinkedList<Conductor> ldc, Vprincipal wm) {
+        this.ldc = ldc;
         this.wm = wm;
         initComponents();
         llenarTabla_no_vacio();
         this.setResizable(false);
         this.setLocationRelativeTo(null);
-        setTitle("Cliente");
+        setTitle("Conductor");
         disbleTxt();
-        flagedit = flagdelClient = false;
+        flagedit = flagdelCon = false;
     }
 
     @SuppressWarnings("unchecked")
@@ -38,7 +38,7 @@ public class Vcliente extends javax.swing.JFrame {
         txtBuscar = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblBusqueda = new javax.swing.JTable();
-        btnCarcaClientes = new javax.swing.JButton();
+        btnCarcaConductores = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         txtDPI = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
@@ -62,6 +62,8 @@ public class Vcliente extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         btnReporte = new javax.swing.JButton();
         txtGenero = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        txtLicencia = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -81,7 +83,7 @@ public class Vcliente extends javax.swing.JFrame {
 
             },
             new String [] {
-                "DPI", "Nombre"
+                "DPI", "Nombre", "Licencia"
             }
         ));
         tblBusqueda.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -94,16 +96,19 @@ public class Vcliente extends javax.swing.JFrame {
             tblBusqueda.getColumnModel().getColumn(0).setMinWidth(100);
             tblBusqueda.getColumnModel().getColumn(0).setPreferredWidth(120);
             tblBusqueda.getColumnModel().getColumn(0).setMaxWidth(170);
+            tblBusqueda.getColumnModel().getColumn(2).setMinWidth(40);
+            tblBusqueda.getColumnModel().getColumn(2).setPreferredWidth(80);
+            tblBusqueda.getColumnModel().getColumn(2).setMaxWidth(100);
         }
 
-        btnCarcaClientes.setText("CARGAR CLIENTES");
-        btnCarcaClientes.addActionListener(new java.awt.event.ActionListener() {
+        btnCarcaConductores.setText("CARGAR CONDUCTORES");
+        btnCarcaConductores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCarcaClientesActionPerformed(evt);
+                btnCarcaConductoresActionPerformed(evt);
             }
         });
 
-        jLabel7.setText("INFORMACION DEL CLIENTE");
+        jLabel7.setText("INFORMACION DEL CONDUCTOR");
 
         txtDPI.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -150,7 +155,7 @@ public class Vcliente extends javax.swing.JFrame {
             }
         });
 
-        btnCrearCliente.setText("CREAR CLIENTE");
+        btnCrearCliente.setText("CREAR CONDUCTOR");
         btnCrearCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCrearClienteActionPerformed(evt);
@@ -176,6 +181,8 @@ public class Vcliente extends javax.swing.JFrame {
             }
         });
 
+        jLabel9.setText("Tipo de Licencia");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -184,63 +191,70 @@ public class Vcliente extends javax.swing.JFrame {
                 .addGap(166, 166, 166)
                 .addComponent(jLabel7)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel6)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txtDireccion, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
-                                .addComponent(txtTelefono)
-                                .addComponent(txtDPI)
-                                .addComponent(txtNombre)
-                                .addComponent(txtApellidos)
-                                .addComponent(txtFechaNacimiento))
-                            .addComponent(txtGenero, javax.swing.GroupLayout.Alignment.TRAILING)))
+                        .addComponent(txtDeleteDPI, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnEditar)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtDeleteDPI, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(39, 39, 39)
-                                .addComponent(btnGuardarCambios)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnEliminar)
-                                .addGap(38, 38, 38)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(39, 39, 39)
+                        .addComponent(btnGuardarCambios)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnEliminar)
+                        .addGap(38, 38, 38))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnCrearCliente)
-                        .addGap(106, 106, 106)
-                        .addComponent(btnCarcaClientes))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel11)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(92, 92, 92))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnReporte)
-                .addGap(249, 249, 249))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel4)
+                                            .addComponent(jLabel3)
+                                            .addComponent(jLabel2)
+                                            .addComponent(jLabel1)
+                                            .addComponent(jLabel5)
+                                            .addComponent(jLabel6)))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel8)
+                                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addGap(39, 39, 39)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtGenero, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtDireccion, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                                    .addComponent(txtTelefono)
+                                    .addComponent(txtDPI)
+                                    .addComponent(txtNombre)
+                                    .addComponent(txtApellidos)
+                                    .addComponent(txtFechaNacimiento))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(txtLicencia))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnCrearCliente)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnCarcaConductores))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jLabel11)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(109, 109, 109))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnReporte)
+                        .addGap(282, 282, 282))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -279,10 +293,11 @@ public class Vcliente extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel8)
                                 .addComponent(txtGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(35, 35, 35)
+                        .addGap(25, 25, 25)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel12)
-                            .addComponent(txtDeleteDPI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel9)
+                            .addComponent(txtLicencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(8, 8, 8))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -290,15 +305,19 @@ public class Vcliente extends javax.swing.JFrame {
                             .addComponent(jLabel11))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 421, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(9, 9, 9)
-                .addComponent(btnReporte)
-                .addGap(18, 18, 18)
+                .addGap(16, 16, 16)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnReporte)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtDeleteDPI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel12)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEditar)
                     .addComponent(btnGuardarCambios)
                     .addComponent(btnEliminar)
                     .addComponent(btnCrearCliente)
-                    .addComponent(btnCarcaClientes))
+                    .addComponent(btnCarcaConductores))
                 .addGap(25, 25, 25))
         );
 
@@ -324,13 +343,13 @@ public class Vcliente extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
 
     private void btnCrearClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearClienteActionPerformed
-        flagnewClient = true;
+        flagnewCondu = true;
         enableTxt();
         clearTXT();
     }//GEN-LAST:event_btnCrearClienteActionPerformed
 
-    private void btnCarcaClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarcaClientesActionPerformed
-        if (tablahash != null) {
+    private void btnCarcaConductoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarcaConductoresActionPerformed
+        if (ldc != null) {
             JFileChooser file = new JFileChooser();
             file.setCurrentDirectory(new File(System.getProperty("user.home")));
             file.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -340,13 +359,13 @@ public class Vcliente extends javax.swing.JFrame {
             if (option == JFileChooser.APPROVE_OPTION) {
                 String path = file.getSelectedFile().getPath();
                 CargaMasiva cm = new CargaMasiva();
-                if (cm.cargarClientes(path, tablahash)) {
+                if (cm.cargarConductores(path, ldc)) {
                     fill_table();
                     JOptionPane.showMessageDialog(null, "Carga Existosa!");
                 }
             }
         }
-    }//GEN-LAST:event_btnCarcaClientesActionPerformed
+    }//GEN-LAST:event_btnCarcaConductoresActionPerformed
 
     private void txtDPIKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDPIKeyTyped
         if ((int) evt.getKeyChar() > 31 && (int) evt.getKeyChar() < 48 || (int) evt.getKeyChar() > 57 && (int) evt.getKeyChar() <= 255) {
@@ -357,7 +376,7 @@ public class Vcliente extends javax.swing.JFrame {
 
     private void tblBusquedaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBusquedaMouseClicked
         long dpi = (long) tblBusqueda.getValueAt(tblBusqueda.getSelectedRow(), 0);
-        Cliente tmp = tablahash.search(dpi);
+        Conductor tmp = buscar(dpi);
         if (tmp != null) {
             txtTelefono.setText(tmp.getTelefono());
             txtApellidos.setText(tmp.getApellidos());
@@ -366,6 +385,7 @@ public class Vcliente extends javax.swing.JFrame {
             txtDireccion.setText(tmp.getDireccion());
             txtNombre.setText(tmp.getNombres());
             txtGenero.setText(tmp.getGenero());
+            txtLicencia.setText(tmp.getTipo_licencia());
             disbleTxt();
         } else {
             System.out.println("No encontro dpi " + dpi);
@@ -375,19 +395,19 @@ public class Vcliente extends javax.swing.JFrame {
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         if (noEmptytxt()) {
             long dpi = Long.parseLong(txtDPI.getText());
-            if (tablahash.search(dpi) != null) {
+            if (buscar(dpi) != null) {
                 enableTxt();
                 txtDPI.setEditable(false);
                 flagedit = true;
             } else {
-                JOptionPane.showMessageDialog(null, "No se puede modificar el cliente!!");
+                JOptionPane.showMessageDialog(null, "No se puede modificar el conductor!!");
             }
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnGuardarCambiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarCambiosActionPerformed
         if (noEmptytxt()) {
-            Cliente ctmp = tablahash.search(Long.parseLong(txtDPI.getText()));
+            Conductor ctmp = buscar(Long.parseLong(txtDPI.getText()));
             if (ctmp != null && flagedit == true) {
                 ctmp.setNombres(txtNombre.getText());
                 ctmp.setApellidos(txtApellidos.getText());
@@ -395,54 +415,58 @@ public class Vcliente extends javax.swing.JFrame {
                 ctmp.setDireccion(txtDireccion.getText());
                 ctmp.setTelefono(txtTelefono.getText());
                 ctmp.setGenero(txtGenero.getText());
+                ctmp.setTipo_licencia(txtLicencia.getText());
                 fill_table();
                 flagedit = false;
                 clearTXT();
                 disbleTxt();
                 JOptionPane.showMessageDialog(null, "Cambio Guardado!");
-            } else if (flagnewClient) {
+            } else if (flagnewCondu) {
                 long dpi = Long.parseLong(txtDPI.getText());
-                Cliente n = new Cliente(dpi, txtNombre.getText(), txtApellidos.getText(), txtTelefono.getText(), txtDireccion.getText(), txtGenero.getText(), txtFechaNacimiento.getText());
-                tablahash.insert(n, dpi);
+                Conductor n = new Conductor(txtLicencia.getText(), dpi, txtNombre.getText(), txtApellidos.getText(), txtTelefono.getText(), txtDireccion.getText(), txtGenero.getText(), txtFechaNacimiento.getText());
+                ldc.add_endc(n);
+                Sort.ordenarListaDoble(ldc);//reordenamos la lista
                 fill_table();
-                JOptionPane.showMessageDialog(null, "Cliente Creado con Exito!");
+                JOptionPane.showMessageDialog(null, "Conductor creado con exito!");
                 disbleTxt();
                 clearTXT();
-                flagnewClient = false;
+                flagnewCondu = false;
             } else {
                 disbleTxt();
                 clearTXT();
-                flagdelClient = flagedit = flagnewClient = false;
+                flagdelCon = flagedit = flagnewCondu = false;
             }
         }
     }//GEN-LAST:event_btnGuardarCambiosActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        if (flagdelClient || !"".equalsIgnoreCase(txtDPI.getText())) {
-            if (flagdelClient) {
+        if (flagdelCon || !"".equalsIgnoreCase(txtDPI.getText())) {
+            if (flagdelCon) {
                 long dpi = Long.parseLong(txtDeleteDPI.getText());
-                if (tablahash.delete(dpi)) {
+                if (ldc.delete_data(buscar(dpi))) {
+                    Sort.ordenarListaDoble(ldc);
                     fill_table();
-                    JOptionPane.showMessageDialog(null, "Cliente con DPI " + txtDeleteDPI.getText() + " eliminado!");
+                    JOptionPane.showMessageDialog(null, "Conductor con DPI " + txtDeleteDPI.getText() + " eliminado!");
                     txtDeleteDPI.setText("");
                 } else {
-                    JOptionPane.showMessageDialog(null, "Cliente con DPI " + txtDeleteDPI.getText() + " No existe!");
+                    JOptionPane.showMessageDialog(null, "Conductor con DPI " + txtDeleteDPI.getText() + " No existe!");
                     txtDeleteDPI.setText("");
                 }
             }
-            if (!"".equalsIgnoreCase(txtDPI.getText()) && !flagdelClient) {
+            if (!"".equalsIgnoreCase(txtDPI.getText()) && !flagdelCon) {
                 long dpi = Long.parseLong(txtDPI.getText());
-                if (tablahash.delete(dpi)) {
+                if (ldc.delete_data(buscar(dpi))) {
                     clearTXT();
+                    Sort.ordenarListaDoble(ldc);
                     fill_table();
-                    JOptionPane.showMessageDialog(null, "Cliente con DPI " + dpi + " eliminado!");
+                    JOptionPane.showMessageDialog(null, "Conductor con DPI " + dpi + " eliminado!");
                     txtDeleteDPI.setText("");
                 }
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Seleccione un Cliente para eliminar o Ingrese DPI");
+            JOptionPane.showMessageDialog(null, "Seleccione un Conductor para eliminar o Ingrese DPI");
         }
-        flagdelClient = false;
+        flagdelCon = false;
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void txtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyTyped
@@ -457,16 +481,15 @@ public class Vcliente extends javax.swing.JFrame {
             evt.consume();
             JOptionPane.showMessageDialog(null, "Solo se permiten números");
         } else {
-            flagdelClient = true;
+            flagdelCon = true;
             disbleTxt();
             clearTXT();
         }
-
     }//GEN-LAST:event_txtDeleteDPIKeyTyped
 
     private void btnReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteActionPerformed
-        if (tablahash != null) {
-            Rtablahash r = new Rtablahash(tablahash, this);
+        if (ldc != null) {
+            Rconductor r = new Rconductor(ldc, this);
             r.setVisible(true);
             dispose();
         }
@@ -487,6 +510,7 @@ public class Vcliente extends javax.swing.JFrame {
         txtNombre.setText("");
         txtDireccion.setText("");
         txtGenero.setText("");
+        txtLicencia.setText("");
     }
 
     //no tiene que haber ningun campo vacio
@@ -496,7 +520,7 @@ public class Vcliente extends javax.swing.JFrame {
                 && !"".equals(txtDireccion.getText()) && !"".equals(txtNombre.getText())) {
             return true;
         } else {
-            JOptionPane.showMessageDialog(null, "Los campos no pueden estar vacios selecione un\ncliente para editar o crear uno nuevo!");
+            JOptionPane.showMessageDialog(null, "Los campos no pueden estar vacios selecione un\nconductor para editar o crea uno nuevo!");
             return false;
         }
     }
@@ -504,28 +528,25 @@ public class Vcliente extends javax.swing.JFrame {
     //metodo para llenar la tabla
     protected void fill_table() {
         DefaultTableModel tabla = (DefaultTableModel) tblBusqueda.getModel();
-        DoubleLinkedList<Cliente> tmpl;
-        int contador = 1;
         tabla.setRowCount(0);
-        for (int i = 0; i < tablahash.getSize(); i++) {
-            tmpl = tablahash.getIndexI(i);
-            if (tmpl != null) {
-                for (int j = 0; j < tmpl.getSize(); j++) {
-                    Cliente temp = tmpl.getData();
-                    Object[] tbl = {
-                        // contador,
-                        temp.getDpi(),
-                        temp.getNombres()
-                    };
-                    tabla.addRow(tbl);
-                    contador++;
-                }
+        Node<Conductor> aux = ldc.getHead();
+        Conductor tmpc;
+        do {
+            tmpc = aux.getData();
+            if (tmpc != null) {
+                Object[] tbl = {
+                    tmpc.getDpi(),
+                    tmpc.getNombres(),
+                    tmpc.getTipo_licencia()
+                };
+                tabla.addRow(tbl);
             }
-        }
+            aux = aux.getNext();
+        } while (aux != ldc.getHead());
     }
 
     private void llenarTabla_no_vacio() {
-        if (tablahash != null) {
+        if (ldc.getSize() > 0) {
             fill_table();
         }
     }
@@ -538,6 +559,7 @@ public class Vcliente extends javax.swing.JFrame {
         txtNombre.setEditable(false);
         txtDireccion.setEditable(false);
         txtGenero.setEditable(false);
+        txtLicencia.setEditable(false);
     }
 
     private void enableTxt() {
@@ -548,6 +570,7 @@ public class Vcliente extends javax.swing.JFrame {
         txtNombre.setEditable(true);
         txtDireccion.setEditable(true);
         txtGenero.setEditable(true);
+        txtLicencia.setEditable(true);
     }
 
     private void fillTablefilter(String keytyped) {
@@ -555,12 +578,26 @@ public class Vcliente extends javax.swing.JFrame {
         tabla.setRowCount(0);
     }
 
-    private boolean deleteClientDPI() {
-        return false;
+    private Conductor buscar(long dpi) {
+        Node<Conductor> aux = ldc.getHead();
+        if (aux == null) {
+            return null;
+        }
+        do {
+            if (aux.getData().getDpi() == dpi) {
+                return aux.getData();
+            }
+            aux = aux.getNext();
+        } while (aux != ldc.getHead());
+        return null;
     }
 
+//    private boolean deleteClientDPI() {
+//        return false;
+//    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCarcaClientes;
+    private javax.swing.JButton btnCarcaConductores;
     private javax.swing.JButton btnCrearCliente;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
@@ -576,6 +613,7 @@ public class Vcliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblBusqueda;
@@ -586,11 +624,12 @@ public class Vcliente extends javax.swing.JFrame {
     private javax.swing.JTextField txtDireccion;
     private javax.swing.JTextField txtFechaNacimiento;
     private javax.swing.JTextField txtGenero;
+    private javax.swing.JTextField txtLicencia;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
-    HashTable<Cliente> tablahash;
+    DoubleLinkedList<Conductor> ldc;
     Vprincipal wm;
-    private boolean flagedit, flagdelClient, flagnewClient;
+    private boolean flagedit, flagdelCon, flagnewCondu;
 
 }

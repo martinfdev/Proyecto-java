@@ -99,20 +99,24 @@ public class DoubleLinkedList<T> {
     }
 
     //metodo para eliminar 
-    private void delete(Node<T> n) {
+    private boolean delete(Node<T> n) {
         if (isEmpty()) {
             if (n == head) {
                 head = head.next;
                 size--;
+                return true;
             } else if (n == queue) {
                 queue = queue.back;
                 size--;
+                return true;
             } else {
                 n.back.next = n.next;
                 n.next.back = n.back;
                 size--;
+                return true;
             }
         }
+        return false;
     }
 
     //funcion util para borrar en la cabeza de la lista
@@ -171,8 +175,11 @@ public class DoubleLinkedList<T> {
     }
 
     //eliminar con parametro
-    public void delete_data(T data) {
-        delete(search(data));
+    public boolean delete_data(T data) {
+        if (data != null) {
+            return delete(search(data));
+        }
+        return false;
     }
 
     //metodo que devuelve el nodo cabeza

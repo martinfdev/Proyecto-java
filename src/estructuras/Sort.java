@@ -12,7 +12,7 @@ public class Sort {
     }
 
     //metodo para ordenar la lista doble de forma ascendente
-    public DoubleLinkedList<Conductor> ordenarListaDoble(DoubleLinkedList<Conductor> list) {
+    public static DoubleLinkedList<Conductor> ordenarListaDoble(DoubleLinkedList<Conductor> list) {
         if (list.getSize() == 0) {
             return null;
         }

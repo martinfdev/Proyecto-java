@@ -13,13 +13,15 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public final class Vprincipal extends javax.swing.JFrame {
 
-    public Vprincipal(BlockChain blockchain, Grafo grafo, HashTable<Cliente> tablahash, BTree btree) {
+    public Vprincipal(BlockChain blockchain, Grafo grafo, HashTable<Cliente> tablahash, BTree btree, DoubleLinkedList<Conductor> lconductor) {
         initComponents();
         this.blockchain = blockchain;
         this.grafo = grafo;
         this.tablahash = tablahash;
         this.btree = btree;
+        this.lconductor = lconductor;
         this.setLocationRelativeTo(null);
+        setResizable(false);
         loadRoutes();
 
     }
@@ -87,6 +89,11 @@ public final class Vprincipal extends javax.swing.JFrame {
         btnViajes.setText("VIAJES");
 
         btnConductor.setText("CONDUCTORES");
+        btnConductor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConductorActionPerformed(evt);
+            }
+        });
 
         btnGrafo.setText("GRAFO DE RUTAS");
         btnGrafo.addActionListener(new java.awt.event.ActionListener() {
@@ -165,11 +172,18 @@ public final class Vprincipal extends javax.swing.JFrame {
         v.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnVehiculosActionPerformed
+
+    private void btnConductorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConductorActionPerformed
+       Vconductor vc = new Vconductor(lconductor, this);
+       vc.setVisible(true);
+       dispose();
+    }//GEN-LAST:event_btnConductorActionPerformed
     private boolean bgrafo = false;
     private BlockChain blockchain;
     private Grafo grafo;
     private HashTable<Cliente> tablahash;
     private BTree btree;
+    private DoubleLinkedList<Conductor>lconductor;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCliente;
     private javax.swing.JButton btnConductor;

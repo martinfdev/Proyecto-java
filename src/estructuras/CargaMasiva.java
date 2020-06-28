@@ -143,6 +143,7 @@ public class CargaMasiva {
         for (String out1 : out) {
             lDoble.add_endc(generarCondutor(out1));
         }
+        Sort.ordenarListaDoble(lDoble);
         return true;
     }
 
@@ -154,16 +155,16 @@ public class CargaMasiva {
         for (int i = 0; i < con.length; i++) {
             switch (i) {
                 case 0:
-                    c.setDpi(Long.parseLong(con[i]));
+                    c.setDpi(Long.parseLong(con[i].trim()));
                     break;
                 case 1:
-                    c.setNombres(con[i]);
+                    c.setNombres(con[i].trim());
                     break;
                 case 2:
                     c.setApellidos(con[i]);
                     break;
                 case 3:
-                    c.setTipo_licencia(con[i]);
+                    c.setTipo_licencia(con[i].trim());
                     break;
                 case 4:
                     c.setGenero(con[i]);

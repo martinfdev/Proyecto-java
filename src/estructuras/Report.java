@@ -1,6 +1,7 @@
 package estructuras;
 
 import beans.Cliente;
+import beans.Conductor;
 import java.io.File;
 
 /**
@@ -93,6 +94,78 @@ public class Report {
             naux = naux.siguiente;
         }
         dotsorce.append(auxs1).append(auxs2);
+    }
+
+    //metodo que grafica una lista Simple recibe como parametro la lista
+    public static String reporteListaSimple(DoubleLinkedList<Conductor> list, String nombre) {
+        Graphviz graph = new Graphviz();
+        graph.addln(graph.start_graph());
+        graph.addln("rankdir=LR;");
+        graph.addln("node [shape=record, color=blue]; ");
+        graph.addln();
+        int contador = 0;
+        String nodos = "", enlaces = "";
+        Node<Conductor> temp = list.getHead();
+        int size = list.getSize();
+        if (temp == null) {
+            nodos = "La Lista está vacía ";
+        } else {
+            do {
+                if (contador < size - 1) {
+                    nodos = nodos + "node" + contador + " [label=\"{DPI: " + temp.getData().getDpi() + " \\nNombre: " + temp.getData().getNombres() + "|<b>}\"];\n";
+                    enlaces = enlaces + "node" + contador + ":b:c -> node" + (contador + 1) + ":c [arrowtail=dot, dir=both,tailclip=false];\n";
+                } else {
+                    nodos = nodos + "node" + contador + " [label=\"{DPI: " + temp.getData().getDpi() + " \\nNombre: " + temp.getData().getNombres() + "|<b>}\"];\n";
+                    nodos = nodos + "node" + (contador + 1) + " [shape=point];\n";
+                    enlaces = enlaces + "node" + contador + ":b:c -> node" + (contador + 1) + ":c [arrowtail=dot, dir=both,tailclip=false];\n";
+                }
+                contador++;
+                temp = temp.next;
+            } while (temp != list.getHead());
+        }
+        graph.addln(nodos);
+        graph.addln(enlaces);
+        graph.addln(graph.end_graph());
+        File out = new File(nombre + ".png");
+        System.out.println(graph.getDotSource());
+        graph.writeGraphToFile(graph.getGraph(graph.getDotSource(), "png"), out);
+        return graph.getPath();
+    }
+
+    //metodo para el reporte de una lista circular recibe como parametro la lista y el nombre para la grafica
+    public static String reportListaDobleCircular(DoubleLinkedList<Conductor> ldc, String nombre) {
+        Graphviz graph = new Graphviz();
+        graph.addln(graph.start_graph());
+        graph.addln("rankdir=LR;");
+        graph.addln("node [shape=record, color=blue, width=0.5, height=0.5]; ");
+        graph.addln();
+        int contador = 0, size = ldc.getSize();
+        Node<Conductor> primero = ldc.getHead();
+        /*StringBuilder*/
+        String nodos = "", enlaces = "", enlacesIverso = "";
+        if (ldc != null && size > 0) {
+            Node<Conductor> aux = primero;
+            do {
+                if (contador < size - 1) {
+                    nodos = nodos + "node" + contador + "[label=\"{<a>|DPI: " + aux.getData().getDpi() + "\\nNombre: " + aux.getData().getNombres() + "|<b>}\"];\n";
+                    enlaces = enlaces + "node" + contador + " -> node" + (contador + 1) + ";\n";
+                    enlacesIverso = enlacesIverso + "node" + (contador + 1) + " -> node" + contador + ";\n";
+                } else {
+                    nodos = nodos + "node" + contador + "[label=\"{<a>|DPI: " + aux.getData().getDpi() + "\\nNombre: " + aux.getData().getNombres() + "|<b>}\"];\n";
+                    enlaces = enlaces + "node" + (contador) + ":b:c -> node" + (0) + ":a:c [arrowtail=dot, dir=both,tailclip=false];\n";
+                    enlacesIverso = enlacesIverso + "node" + (0) + ":a:c -> node" + (contador) + ":b:c [arrowtail=dot, dir=both,tailclip=false];\n";
+                }
+                contador++;
+                aux = aux.next;
+            } while (aux != primero);
+        }
+        graph.addln(nodos);
+        graph.addln(enlaces);
+        graph.addln(enlacesIverso);
+        graph.addln(graph.end_graph());
+        File out = new File(nombre + ".png");
+        graph.writeGraphToFile(graph.getGraph(graph.getDotSource(), "png"), out);
+        return graph.getPath();
     }
 
 }
