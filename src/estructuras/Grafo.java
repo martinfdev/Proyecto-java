@@ -201,6 +201,18 @@ public class Grafo {
 //            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 //        }
 //    };
+    
+    //funcion que devuelve un true si exite nodo
+    public boolean getExistNodo(String nombre) {
+        NodoG aux = inicio;
+        while (aux != null) {
+            if (aux.nombre.equals(nombre)) {
+                return true;
+            }
+            aux = aux.siguiente;
+        }
+        return false;
+    }
 
     private NodoG inicio;
     private int size;

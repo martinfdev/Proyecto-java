@@ -87,6 +87,11 @@ public final class Vprincipal extends javax.swing.JFrame {
         });
 
         btnViajes.setText("VIAJES");
+        btnViajes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViajesActionPerformed(evt);
+            }
+        });
 
         btnConductor.setText("CONDUCTORES");
         btnConductor.addActionListener(new java.awt.event.ActionListener() {
@@ -178,6 +183,12 @@ public final class Vprincipal extends javax.swing.JFrame {
        vc.setVisible(true);
        dispose();
     }//GEN-LAST:event_btnConductorActionPerformed
+
+    private void btnViajesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViajesActionPerformed
+        Vviaje vv = new Vviaje(blockchain, grafo, tablahash, btree, lconductor, this);
+        vv.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnViajesActionPerformed
     private boolean bgrafo = false;
     private BlockChain blockchain;
     private Grafo grafo;

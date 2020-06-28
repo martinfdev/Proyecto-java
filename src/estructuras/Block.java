@@ -1,8 +1,6 @@
 package estructuras;
 
 import beans.Viaje;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 /**
  *
@@ -18,21 +16,15 @@ public class Block {
     private String hash;
 
     public Block(String preovioushash, Viaje viaje) {
-        this.preovioushash = preovioushash;
+        this.preovioushash = preovioushash;      
+        this.viaje = viaje;
         this.hash = calculateHash();
-        // System.out.println(getDate());
-    }
-
-    //funcion util para obtener el timestamp
-    private String getDate() {
-        String date;
-        return date = new SimpleDateFormat("dd-MM-YY::HH:MM").format(Calendar.getInstance().getTime());
     }
 
     //funcion que devuelve el hash minado
     private String calculateHash() {
         String tohashblock = viaje.getVehiculo().getPlaca() + viaje.getFecha_hora() + preovioushash;
-        //String caclhash = Encrypted.getSHA256(tohashblock);
+//String caclhash = Encrypted.getSHA256(tohashblock);
         String calchash = Encrypted.getMD5(tohashblock);
         return calchash;
     }
@@ -50,11 +42,9 @@ public class Block {
 //    public int getIndex() {
 //        return index;
 //    }
-
 //    public String getTimestamp() {
 //        return timestamp;
 //    }
-
     public int getNonce() {
         return Nonce;
     }
@@ -70,7 +60,7 @@ public class Block {
     public void setPreovioushash(String preovioushash) {
         this.preovioushash = preovioushash;
     }
-    
+
     public String getHash() {
         return calculateHash();
     }
@@ -79,4 +69,7 @@ public class Block {
         this.data = data;
     }
 
+    public Viaje getViaje() {
+        return viaje;
+    }
 }

@@ -12,21 +12,21 @@ import java.util.Calendar;
 public class Viaje {
 
     public Viaje(){}
-    
-    public Viaje(String origen, String destino, Cliente cliente, Conductor conductor, Vehiculo vehiculo, LinkedList<NodoG> ruta) {
+
+    public Viaje(String origen, String destino, String fecha_hora, Cliente cliente, Conductor conductor, Vehiculo vehiculo, LinkedList<NodoG> ruta) {
         this.origen = origen;
         this.destino = destino;
-        this.fecha_hora = getDate();
+        this.fecha_hora = fecha_hora;
         this.cliente = cliente;
         this.conductor = conductor;
         this.vehiculo = vehiculo;
         this.ruta = ruta;
     }
-    
-     //funcion util para obtener el timestamp
-    private String getDate() {
+        
+    //funcion util para obtener el timestamp
+    public static String getDate() {
         String date;
-        return date = new SimpleDateFormat("dd-MM-YY::HH:MM").format(Calendar.getInstance().getTime());
+        return date = new SimpleDateFormat("dd-MM-YY HH:mm:ss").format(Calendar.getInstance().getTime());
     }
 
     public String getOrigen() {

@@ -5,6 +5,8 @@
  */
 package estructuras;
 
+import beans.Viaje;
+
 /**
  *
  * @author pedro
@@ -26,18 +28,20 @@ public class BlockChain {
     }
 
     //comprobar que el hash del bloque anterior es igual al que tengo en lista
-    public boolean noChanges() {
+    public boolean changes() {
         int cont = 1;
         Node<Block> aux = lblock.getHead();
         Node<Block> aux2;
-        while (aux.next != null) {
-            aux2 = aux.next;
-            if (!aux.getData().getHash().equals(aux2.getData().getPreovioushash())) {
-                System.out.println("Cambio en el hash del bloque: " + cont);
-                return true;
+        if (aux != null && aux.next != null) {
+            while (aux.next != null) {
+                aux2 = aux.next;
+                if (!aux.getData().getHash().equals(aux2.getData().getPreovioushash())) {
+                    System.out.println("Cambio en el hash del bloque: " + cont);
+                    return true;
+                }
+                cont++;
+                aux = aux.next;
             }
-            cont++;
-            aux = aux.next;
         }
         return false;
     }
@@ -46,15 +50,23 @@ public class BlockChain {
     public int getIndex() {
         return index = lblock.getSize();
     }
-    
+
     //retorna una lista de bloques
-    public DoubleLinkedList<Block> getListBlock(){
+    public DoubleLinkedList<Block> getListBlock() {
         return lblock;
     }
-    
-    //retorna el hash de ultimo elemento insertao en la lista
-    public String getPreviosHas(){
+
+    //retorna el hash de ultimo elemento insertado en la lista
+    private String getPreviosHas() {
         Node<Block> aux = lblock.getEnd();
-        return aux.getData().getHash();
+        if (aux != null && !changes()) {
+            return aux.getData().getHash();
+        }
+        return "0";
     }
+    
+    public void createBlock(Viaje viaje){
+        Block blk = new Block(getPreviosHas(), viaje);
+        lblock.add_end(blk);
+    }  
 }

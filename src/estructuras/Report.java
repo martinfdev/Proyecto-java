@@ -127,7 +127,6 @@ public class Report {
         graph.addln(enlaces);
         graph.addln(graph.end_graph());
         File out = new File(nombre + ".png");
-        System.out.println(graph.getDotSource());
         graph.writeGraphToFile(graph.getGraph(graph.getDotSource(), "png"), out);
         return graph.getPath();
     }
@@ -164,6 +163,41 @@ public class Report {
         graph.addln(enlacesIverso);
         graph.addln(graph.end_graph());
         File out = new File(nombre + ".png");
+        graph.writeGraphToFile(graph.getGraph(graph.getDotSource(), "png"), out);
+        return graph.getPath();
+    }
+
+    //metodo que gener el reporte para block chain pide como parametro la lista doblemente enlazada simple
+    public static String reporteBlockChain(DoubleLinkedList<Block> blockchain) {
+        Graphviz graph = new Graphviz();
+        graph.addln(graph.start_graph());
+        graph.addln("rankdir=LR;");
+        graph.addln("node [fontsize=\"16\", shape=\"ellipse\"]; ");
+        graph.addln();
+        int contador = 0;
+        String nodos = "", enlaces = "";
+        Node<Block> temp = blockchain.getHead();
+        int size = blockchain.getSize();
+        if (temp == null) {
+            nodos = "La Lista está vacía ";
+        } else {
+            while (temp != null) {
+                if (contador < size - 1) {
+                    nodos = nodos + "node" + contador + " [label=\"<f0>Pre H(" + temp.getData().getPreovioushash() + ")|<f1>HASH: "+temp.getData().getHash()+"\\nFecha: " + temp.getData().getViaje().getFecha_hora() + " \\nPlaca: " + temp.getData().getViaje().getVehiculo().getPlaca() + "\", shape=\"record\"];\n";
+                    enlaces = enlaces + "node" + contador + ":f0 -> node" + (contador + 1) + ":f0;\n";
+                } else {
+                    nodos = nodos + "node" + contador + " [label=\"<f0>Pre H(" + temp.getData().getPreovioushash() + ")|<f1>HASH: "+temp.getData().getHash()+"\\nFecha: " + temp.getData().getViaje().getFecha_hora() + " \\nPlaca: " + temp.getData().getViaje().getVehiculo().getPlaca() + "\", shape=\"record\"];\n";
+                    nodos = nodos + "node" + (contador + 1) + " [shape=point];\n";
+                    enlaces = enlaces + "node" + contador + ":f0 -> node" + (contador + 1) + ":f0 [arrowtail=dot, dir=both,tailclip=false];\n";
+                }
+                contador++;
+                temp = temp.next;
+            }
+        }
+        graph.addln(nodos);
+        graph.addln(enlaces);
+        graph.addln(graph.end_graph());
+        File out = new File("BlockChain" + ".png");
         graph.writeGraphToFile(graph.getGraph(graph.getDotSource(), "png"), out);
         return graph.getPath();
     }
