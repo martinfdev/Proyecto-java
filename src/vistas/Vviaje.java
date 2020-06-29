@@ -289,12 +289,13 @@ public class Vviaje extends javax.swing.JFrame {
             if (tmpvehi == null) {
                 JOptionPane.showMessageDialog(null, "No existe el Vehiculo");
                 return;
-            }
+            }//falta la lista de la ruta mas corta
             Viaje nv = new Viaje(txtOrigen.getText(), txtDestino.getText(), txtFecha.getText(), tmpc, tmpcon, tmpvehi, null);
             blockchain.createBlock(nv);
-            reportSetBlockChain(Report.reporteBlockChain(blockchain.getListBlock()));
+            reportSetBlockChain(Report.reporteBlockChain(blockchain.getListBlock(), false));
             cleantTxt();
             txtNoEditable();
+            
         }
     }//GEN-LAST:event_btnAceptarActionPerformed
 
@@ -318,7 +319,7 @@ public class Vviaje extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCrearActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        Report.reporteGeneral(blockchain.getListBlock(), lconductor, btree, tablahash.getArray());
     }//GEN-LAST:event_jButton1ActionPerformed
 
     //metodo para comprobar si los jtext estan vacios
@@ -408,4 +409,6 @@ public class Vviaje extends javax.swing.JFrame {
     private BTree btree;
     private DoubleLinkedList<Conductor> lconductor;
     private Vprincipal vp;
+    private boolean flagreport=false;
+    
 }

@@ -133,4 +133,7 @@ public class HashTable<T> {
         return null;
     }
 
+    public NodoHash<T>[] getArray(){
+        return array;
+    }
 }

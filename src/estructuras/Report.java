@@ -18,7 +18,7 @@ public class Report {
     * pide como parametro el vector y un StringBuilder donde
     * se va concatenando el codigo dot para generar la grafica
      */
-    private void generate_source_dot(StringBuilder dotsource, NodoHash[] array) {
+    private static void generate_source_dot(StringBuilder dotsource, NodoHash[] array) {
         dotsource.append("nodel[label=\"Vector");
         StringBuilder nodes = new StringBuilder(); //string para nodos
         StringBuilder dir = new StringBuilder(); //string para direccion a que nodos debe apuntar
@@ -97,7 +97,7 @@ public class Report {
     }
 
     //metodo que grafica una lista Simple recibe como parametro la lista
-    public static String reporteListaSimple(DoubleLinkedList<Conductor> list, String nombre) {
+    public static String reporteListaSimple(DoubleLinkedList<Conductor> list, String nombre, boolean string) {
         Graphviz graph = new Graphviz();
         graph.addln(graph.start_graph());
         graph.addln("rankdir=LR;");
@@ -132,12 +132,19 @@ public class Report {
     }
 
     //metodo para el reporte de una lista circular recibe como parametro la lista y el nombre para la grafica
-    public static String reportListaDobleCircular(DoubleLinkedList<Conductor> ldc, String nombre) {
+    public static String reportListaDobleCircular(DoubleLinkedList<Conductor> ldc, String nombre, boolean string) {
         Graphviz graph = new Graphviz();
-        graph.addln(graph.start_graph());
-        graph.addln("rankdir=LR;");
-        graph.addln("node [shape=record, color=blue, width=0.5, height=0.5]; ");
-        graph.addln();
+        if (!string) {
+            graph.addln(graph.start_graph());
+            graph.addln("rankdir=LR;");
+            graph.addln("node [shape=record, color=blue, width=0.5, height=0.5]; ");
+            graph.addln();
+        } else {
+            graph.addln("subgraph cluster_cond {");
+            graph.addln("rankdir=LR;");
+            graph.addln("node [shape=record, color=blue, width=0.5, height=0.5]; ");
+            graph.addln("\nlabel = \"Conductores\";\ncolor=blue;");
+        }
         int contador = 0, size = ldc.getSize();
         Node<Conductor> primero = ldc.getHead();
         /*StringBuilder*/
@@ -162,18 +169,27 @@ public class Report {
         graph.addln(enlaces);
         graph.addln(enlacesIverso);
         graph.addln(graph.end_graph());
+        if (string) {
+            return graph.getDotSource();
+        }
         File out = new File(nombre + ".png");
         graph.writeGraphToFile(graph.getGraph(graph.getDotSource(), "png"), out);
         return graph.getPath();
     }
 
     //metodo que gener el reporte para block chain pide como parametro la lista doblemente enlazada simple
-    public static String reporteBlockChain(DoubleLinkedList<Block> blockchain) {
+    public static String reporteBlockChain(DoubleLinkedList<Block> blockchain, boolean string) {
         Graphviz graph = new Graphviz();
-        graph.addln(graph.start_graph());
-        graph.addln("rankdir=LR;");
-        graph.addln("node [fontsize=\"16\", shape=\"ellipse\"]; ");
-        graph.addln();
+        if (!string) {
+            graph.addln(graph.start_graph());
+            graph.addln("rankdir=LR;");
+            graph.addln("node [fontsize=\"16\", shape=\"ellipse\"]; ");
+            graph.addln();
+        } else {
+            graph.addln("subgraph cluster_0 {");
+            graph.addln("rankdir=LR;");
+            graph.addln("\nlabel = \"Block Chain\";\ncolor=blue;");
+        }
         int contador = 0;
         String nodos = "", enlaces = "";
         Node<Block> temp = blockchain.getHead();
@@ -183,10 +199,10 @@ public class Report {
         } else {
             while (temp != null) {
                 if (contador < size - 1) {
-                    nodos = nodos + "node" + contador + " [label=\"<f0>Pre H(" + temp.getData().getPreovioushash() + ")|<f1>HASH: "+temp.getData().getHash()+"\\nFecha: " + temp.getData().getViaje().getFecha_hora() + " \\nPlaca: " + temp.getData().getViaje().getVehiculo().getPlaca() + "\", shape=\"record\"];\n";
+                    nodos = nodos + "node" + contador + " [label=\"<f0>Pre H(" + temp.getData().getPreovioushash() + ")|<f1>HASH: " + temp.getData().getHash() + "\\nFecha: " + temp.getData().getViaje().getFecha_hora() + " \\nPlaca: " + temp.getData().getViaje().getVehiculo().getPlaca() + "\", shape=\"record\"];\n";
                     enlaces = enlaces + "node" + contador + ":f0 -> node" + (contador + 1) + ":f0;\n";
                 } else {
-                    nodos = nodos + "node" + contador + " [label=\"<f0>Pre H(" + temp.getData().getPreovioushash() + ")|<f1>HASH: "+temp.getData().getHash()+"\\nFecha: " + temp.getData().getViaje().getFecha_hora() + " \\nPlaca: " + temp.getData().getViaje().getVehiculo().getPlaca() + "\", shape=\"record\"];\n";
+                    nodos = nodos + "node" + contador + " [label=\"<f0>Pre H(" + temp.getData().getPreovioushash() + ")|<f1>HASH: " + temp.getData().getHash() + "\\nFecha: " + temp.getData().getViaje().getFecha_hora() + " \\nPlaca: " + temp.getData().getViaje().getVehiculo().getPlaca() + "\", shape=\"record\"];\n";
                     nodos = nodos + "node" + (contador + 1) + " [shape=point];\n";
                     enlaces = enlaces + "node" + contador + ":f0 -> node" + (contador + 1) + ":f0 [arrowtail=dot, dir=both,tailclip=false];\n";
                 }
@@ -197,9 +213,36 @@ public class Report {
         graph.addln(nodos);
         graph.addln(enlaces);
         graph.addln(graph.end_graph());
+        if (string) {
+            return graph.getDotSource();
+        }
         File out = new File("BlockChain" + ".png");
         graph.writeGraphToFile(graph.getGraph(graph.getDotSource(), "png"), out);
         return graph.getPath();
     }
 
+    //metodo paraga generar la grifica general de las estructuras de que componen el viaje
+    public static String reporteGeneral(DoubleLinkedList<Block> blockchain, DoubleLinkedList<Conductor> lconductor, BTree tree, NodoHash[] array) {
+        Graphviz graph = new Graphviz();
+        graph.addln(graph.start_graph());
+        //subrafo block chain
+        graph.addln(reporteBlockChain(blockchain, true));
+        //subrafo tabla hash
+        graph.addln("subgraph cluster_thash {\n"
+                + "node [shape=record, color=blue, height=.1, width=.1];\n"
+                + "edge[color=red];\n"
+                + "graph [nodesep=0.5];"
+                + "color=blue");
+        StringBuilder sb = new StringBuilder();
+        generate_source_dot(sb, array);
+        graph.addln(sb.toString());
+        graph.addln(graph.end_graph());
+        //lista de conductores
+        graph.addln(reportListaDobleCircular(lconductor, "", true));
+        graph.add(graph.end_graph());
+        System.out.println(graph.getDotSource());
+        File out = new File("Rgeneral" + ".png");
+        graph.writeGraphToFile(graph.getGraph(graph.getDotSource(), "png"), out);
+        return graph.getPath();
+    }
 }

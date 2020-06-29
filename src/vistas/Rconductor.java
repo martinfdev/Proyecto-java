@@ -22,7 +22,7 @@ public class Rconductor extends javax.swing.JFrame {
     
     //metodo para generar el report
     private void report(){
-        String url_image = Report.reportListaDobleCircular(ldc, "ListaCircularConductores");
+        String url_image = Report.reportListaDobleCircular(ldc, "ListaCircularConductores", false);
         String content = "<img src=\"file:" + url_image + "\">";
         jTextPane1.setContentType("text/html");
         jTextPane1.setText(content);
