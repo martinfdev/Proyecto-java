@@ -292,10 +292,11 @@ public class Vviaje extends javax.swing.JFrame {
             }//falta la lista de la ruta mas corta
             Viaje nv = new Viaje(txtOrigen.getText(), txtDestino.getText(), txtFecha.getText(), tmpc, tmpcon, tmpvehi, null);
             blockchain.createBlock(nv);
-            reportSetBlockChain(Report.reporteBlockChain(blockchain.getListBlock(), false));
+            Report r = new Report();
+            reportSetBlockChain(r.reporteBlockChain(blockchain.getListBlock(), false));
             cleantTxt();
             txtNoEditable();
-            
+
         }
     }//GEN-LAST:event_btnAceptarActionPerformed
 
@@ -315,11 +316,15 @@ public class Vviaje extends javax.swing.JFrame {
 
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
         txtEditable();
-        txtFecha.setText(Viaje.getDate()); 
+        txtFecha.setText(Viaje.getDate());
     }//GEN-LAST:event_btnCrearActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Report.reporteGeneral(blockchain.getListBlock(), lconductor, btree, tablahash.getArray());
+        Report r = new Report();
+        Rgeneral rg = new Rgeneral(r.reporteGeneral(blockchain.getListBlock(), lconductor, btree, tablahash.getArray()), this);
+        rg.setVisible(true);
+        dispose();
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     //metodo para comprobar si los jtext estan vacios
@@ -369,14 +374,14 @@ public class Vviaje extends javax.swing.JFrame {
         txtOrigen.setEditable(true);
         txtVehiculo.setEditable(true);
     }
-    
-    private void reportSetBlockChain(String path){
+
+    private void reportSetBlockChain(String path) {
         String url_image = path;
         String content = "<img src=\"file:" + url_image + "\">";
         jTextPane2.setContentType("text/html");
         jTextPane2.setText(content);
     }
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
@@ -409,6 +414,5 @@ public class Vviaje extends javax.swing.JFrame {
     private BTree btree;
     private DoubleLinkedList<Conductor> lconductor;
     private Vprincipal vp;
-    private boolean flagreport=false;
-    
+
 }

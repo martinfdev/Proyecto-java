@@ -18,7 +18,7 @@ public class Report {
     * pide como parametro el vector y un StringBuilder donde
     * se va concatenando el codigo dot para generar la grafica
      */
-    private static void generate_source_dot(StringBuilder dotsource, NodoHash[] array) {
+    private void generate_source_dot(StringBuilder dotsource, NodoHash[] array) {
         dotsource.append("nodel[label=\"Vector");
         StringBuilder nodes = new StringBuilder(); //string para nodos
         StringBuilder dir = new StringBuilder(); //string para direccion a que nodos debe apuntar
@@ -31,7 +31,17 @@ public class Report {
                 nodes.append("node").append(i).append("[label=\"{<g> |");
                 for (int j = 0; j < tmp.getSize(); j++) {
                     Cliente temp = tmp.getData();
-                    nodes.append("Nombre: ").append(temp.getNombres()).append("\\n").append("DPI: ").append(temp.getDpi()).append("\\n").append("Telefono: ").append(temp.getTelefono()).append("|");
+                    if (j > 0) {
+                        if (dpiClie == temp.getDpi()) {
+                            tmpCliente = "node" + i + ":n" + i + "" + j + "";
+                        }
+                        nodes.append("<n").append(i).append(j).append(">|Nombre: ").append(temp.getNombres()).append("\\n").append("DPI: ").append(temp.getDpi()).append("\\n").append("Telefono: ").append(temp.getTelefono()).append("|");
+                    } else {
+                        if (dpiClie == temp.getDpi()) {
+                            tmpCliente = "node" + i + ":g";
+                        }
+                        nodes.append("Nombre: ").append(temp.getNombres()).append("\\n").append("DPI: ").append(temp.getDpi()).append("\\n").append("Telefono: ").append(temp.getTelefono()).append("|");
+                    }
                 }
                 nodes.append("<s>}\"]\n");
                 dir.append("node").append(i).append(":g[arrowtail=dot, dir=both,tailclip=false];\n");
@@ -42,6 +52,7 @@ public class Report {
         dotsource.append("\", height=.5];\n");
         dotsource.append(nodes);
         dotsource.append(dir);
+        //  System.out.println(dotsource);
     }
 
     //metodo publico para generar imagen pide como parametro el vector
@@ -132,7 +143,8 @@ public class Report {
     }
 
     //metodo para el reporte de una lista circular recibe como parametro la lista y el nombre para la grafica
-    public static String reportListaDobleCircular(DoubleLinkedList<Conductor> ldc, String nombre, boolean string) {
+    public String reportListaDobleCircular(DoubleLinkedList<Conductor> ldc, String nombre, boolean string) {
+        String d = "";
         Graphviz graph = new Graphviz();
         if (!string) {
             graph.addln(graph.start_graph());
@@ -140,6 +152,7 @@ public class Report {
             graph.addln("node [shape=record, color=blue, width=0.5, height=0.5]; ");
             graph.addln();
         } else {
+            d = "c";
             graph.addln("subgraph cluster_cond {");
             graph.addln("rankdir=LR;");
             graph.addln("node [shape=record, color=blue, width=0.5, height=0.5]; ");
@@ -153,13 +166,19 @@ public class Report {
             Node<Conductor> aux = primero;
             do {
                 if (contador < size - 1) {
-                    nodos = nodos + "node" + contador + "[label=\"{<a>|DPI: " + aux.getData().getDpi() + "\\nNombre: " + aux.getData().getNombres() + "|<b>}\"];\n";
-                    enlaces = enlaces + "node" + contador + " -> node" + (contador + 1) + ";\n";
-                    enlacesIverso = enlacesIverso + "node" + (contador + 1) + " -> node" + contador + ";\n";
+                    if (dpiCon == aux.getData().getDpi()) {
+                        tmpCond = "node" + d + contador;
+                    }
+                    nodos = nodos + "node" + d + contador + "[label=\"{<a>|DPI: " + aux.getData().getDpi() + "\\nNombre: " + aux.getData().getNombres() + "|<b>}\"];\n";
+                    enlaces = enlaces + "node" + d + contador + " -> node" + d + (contador + 1) + ";\n";
+                    enlacesIverso = enlacesIverso + "node" + d + (contador + 1) + " -> node" + d + contador + ";\n";
                 } else {
-                    nodos = nodos + "node" + contador + "[label=\"{<a>|DPI: " + aux.getData().getDpi() + "\\nNombre: " + aux.getData().getNombres() + "|<b>}\"];\n";
-                    enlaces = enlaces + "node" + (contador) + ":b:c -> node" + (0) + ":a:c [arrowtail=dot, dir=both,tailclip=false];\n";
-                    enlacesIverso = enlacesIverso + "node" + (0) + ":a:c -> node" + (contador) + ":b:c [arrowtail=dot, dir=both,tailclip=false];\n";
+                    if (dpiCon == aux.getData().getDpi()) {
+                        tmpCond = "node" + d + contador;
+                    }
+                    nodos = nodos + "node" + d + contador + "[label=\"{<a>|DPI: " + aux.getData().getDpi() + "\\nNombre: " + aux.getData().getNombres() + "|<b>}\"];\n";
+                    enlaces = enlaces + "node" + d + (contador) + ":b:c -> node" + d + (0) + ":a:c [arrowtail=dot, dir=both,tailclip=false];\n";
+                    enlacesIverso = enlacesIverso + "node" + d + (0) + ":a:c -> node" + d + (contador) + ":b:c [arrowtail=dot, dir=both,tailclip=false];\n";
                 }
                 contador++;
                 aux = aux.next;
@@ -178,7 +197,8 @@ public class Report {
     }
 
     //metodo que gener el reporte para block chain pide como parametro la lista doblemente enlazada simple
-    public static String reporteBlockChain(DoubleLinkedList<Block> blockchain, boolean string) {
+    public String reporteBlockChain(DoubleLinkedList<Block> blockchain, boolean string) {
+        String b = "";
         Graphviz graph = new Graphviz();
         if (!string) {
             graph.addln(graph.start_graph());
@@ -189,6 +209,7 @@ public class Report {
             graph.addln("subgraph cluster_0 {");
             graph.addln("rankdir=LR;");
             graph.addln("\nlabel = \"Block Chain\";\ncolor=blue;");
+            b = "b";
         }
         int contador = 0;
         String nodos = "", enlaces = "";
@@ -199,12 +220,14 @@ public class Report {
         } else {
             while (temp != null) {
                 if (contador < size - 1) {
-                    nodos = nodos + "node" + contador + " [label=\"<f0>Pre H(" + temp.getData().getPreovioushash() + ")|<f1>HASH: " + temp.getData().getHash() + "\\nFecha: " + temp.getData().getViaje().getFecha_hora() + " \\nPlaca: " + temp.getData().getViaje().getVehiculo().getPlaca() + "\", shape=\"record\"];\n";
-                    enlaces = enlaces + "node" + contador + ":f0 -> node" + (contador + 1) + ":f0;\n";
+
+                    nodos = nodos + "node" + b + contador + " [label=\"<f0>Pre H(" + temp.getData().getPreovioushash() + ")|<f1>HASH: " + temp.getData().getHash() + "\\nFecha: " + temp.getData().getViaje().getFecha_hora() + " \\nPlaca: " + temp.getData().getViaje().getVehiculo().getPlaca() + "\", shape=\"record\"];\n";
+                    enlaces = enlaces + "node" + b + contador + ":f0 -> node" + b + (contador + 1) + ":f0;\n";
                 } else {
-                    nodos = nodos + "node" + contador + " [label=\"<f0>Pre H(" + temp.getData().getPreovioushash() + ")|<f1>HASH: " + temp.getData().getHash() + "\\nFecha: " + temp.getData().getViaje().getFecha_hora() + " \\nPlaca: " + temp.getData().getViaje().getVehiculo().getPlaca() + "\", shape=\"record\"];\n";
-                    nodos = nodos + "node" + (contador + 1) + " [shape=point];\n";
-                    enlaces = enlaces + "node" + contador + ":f0 -> node" + (contador + 1) + ":f0 [arrowtail=dot, dir=both,tailclip=false];\n";
+                    finalstring = "node" + b + contador + ":f1";
+                    nodos = nodos + "node" + b + contador + " [label=\"<f0>Pre H(" + temp.getData().getPreovioushash() + ")|<f1>HASH: " + temp.getData().getHash() + "\\nFecha: " + temp.getData().getViaje().getFecha_hora() + " \\nPlaca: " + temp.getData().getViaje().getVehiculo().getPlaca() + "\", shape=\"record\"];\n";
+                    nodos = nodos + "node" + b + (contador + 1) + " [shape=point];\n";
+                    enlaces = enlaces + "node" + b + contador + ":f0 -> node" + b + (contador + 1) + ":f0 [arrowtail=dot, dir=both,tailclip=false];\n";
                 }
                 contador++;
                 temp = temp.next;
@@ -222,9 +245,15 @@ public class Report {
     }
 
     //metodo paraga generar la grifica general de las estructuras de que componen el viaje
-    public static String reporteGeneral(DoubleLinkedList<Block> blockchain, DoubleLinkedList<Conductor> lconductor, BTree tree, NodoHash[] array) {
+    public String reporteGeneral(DoubleLinkedList<Block> blockchain, DoubleLinkedList<Conductor> lconductor, BTree tree, NodoHash[] array) {
+        try {
+            dpiClie = blockchain.getEnd().getData().getViaje().getCliente().getDpi();
+            dpiCon = blockchain.getEnd().getData().getViaje().getConductor().getDpi();
+        } catch (Exception e) {
+        }
         Graphviz graph = new Graphviz();
         graph.addln(graph.start_graph());
+        graph.addln("rankdir=LR");
         //subrafo block chain
         graph.addln(reporteBlockChain(blockchain, true));
         //subrafo tabla hash
@@ -239,10 +268,14 @@ public class Report {
         graph.addln(graph.end_graph());
         //lista de conductores
         graph.addln(reportListaDobleCircular(lconductor, "", true));
+        graph.addln(finalstring + " -> " + tmpCliente + ";");
+        graph.addln(finalstring + " -> " + tmpCond + ";");
         graph.add(graph.end_graph());
-        System.out.println(graph.getDotSource());
+      //  System.out.println(graph.getDotSource());
         File out = new File("Rgeneral" + ".png");
         graph.writeGraphToFile(graph.getGraph(graph.getDotSource(), "png"), out);
         return graph.getPath();
     }
+    private String tmpCond, tmpCliente, nPlaca, finalstring;
+    private long dpiCon, dpiClie;
 }

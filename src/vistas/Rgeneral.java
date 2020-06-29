@@ -1,29 +1,26 @@
 package vistas;
 
-import beans.Conductor;
-import estructuras.DoubleLinkedList;
-import estructuras.Report;
+
 /**
  *
  * @author pedro
  */
-public class Rconductor extends javax.swing.JFrame {
+public class Rgeneral extends javax.swing.JFrame {
 
-    public Rconductor(DoubleLinkedList<Conductor> ldc, Vconductor Vconductor) {
+    public Rgeneral(String path, Vviaje vviaje) {
         initComponents();
-        this.Vconductor = Vconductor;
-        this.ldc = ldc;
+        this.vviaje = vviaje;
+        this.path =path;
         this.setLocationRelativeTo(null);
         this.setResizable(false);
-        setTitle("Lista Circular Conductores");
+        setTitle("Reporte General");
         report();
         jTextPane1.setEditable(false);
     }
     
     //metodo para generar el report
     private void report(){
-        Report r = new Report();
-        String url_image = r.reportListaDobleCircular(ldc, "ListaCircularConductores", false);
+        String url_image = path;
         String content = "<img src=\"file:" + url_image + "\">";
         jTextPane1.setContentType("text/html");
         jTextPane1.setText(content);
@@ -50,14 +47,14 @@ public class Rconductor extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 795, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1256, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 697, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -65,12 +62,12 @@ public class Rconductor extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        Vconductor.setVisible(true);
+        vviaje.setVisible(true);
         dispose();
     }//GEN-LAST:event_formWindowClosing
 
-    private DoubleLinkedList<Conductor> ldc;
-    private Vconductor Vconductor;
+    private String path;
+    private Vviaje vviaje;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane2;
