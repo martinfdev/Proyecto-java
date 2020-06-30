@@ -155,7 +155,6 @@ public class Grafo {
         }
     }
 
-    
     public LinkedList<NodoG> caminoMinimo(String origen, String destino) {
         if (inicio != null) {
             NodoG or = getNodo(origen);
@@ -168,40 +167,87 @@ public class Grafo {
                 System.out.println("No existe el Nodo destino");
                 return null;
             }
-            return dijkstra(or, de);
+            return primeroAnchura(or, de);
         } else {
             System.out.println("No existen nodos");
         }
         return null;
     }
-    
-    
-    //metodo que determina el camino mas simple y ruta con el menor coste
-    
-    private LinkedList<NodoG> dijkstra(NodoG origen, NodoG destino){
-        
-    return null;
+
+    //metodo que compara el costo de los caminos
+    public boolean compareTo(Pair<NodoG, Integer> a, Pair<NodoG, Integer> b) {
+        return (int) a.second < (int) b.second;
     }
-    
-//      //En el caso de java usamos una clase que representara el pair de C++
-//    class NodeG implements Comparable<Node>{
-//        int first, second;
-//        NodeG( int d , int p ){                          //constructor
-//            this.first = d;
-//            this.second = p;
-//        }
-//        public int compareTo( NodeG other){              //es necesario definir un comparador para el correcto funcionamiento del PriorityQueue
-//            if( second > other.second ) return 1;
-//            if( second == other.second ) return 0;
-//            return -1;
-//        }
-//
-//        @Override
-//        public int compareTo(Node t) {
-//            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//        }
-//    };
-    
+
+    //metodo que determina el camino mas simple y ruta con el menor coste
+    private LinkedList<NodoG> primeroAnchura(NodoG origen, NodoG destino) {
+        LinkedList<NodoG> listRuta = new LinkedList<>();
+        LinkedList<Pair<NodoG, Integer>> listacostos = new LinkedList<>();
+        java.util.LinkedList<Pair<NodoG, Integer>> listaOrdenada = new java.util.LinkedList<>();
+        LinkedList<Pair<NodoG, NodoG>> pila = new LinkedList<>();
+        listacostos.add_queue(new Pair(origen, 0));
+        listaOrdenada.addLast(new Pair(origen, 0));
+        int costoActual=0;
+        NodoG nodActual, destinoActual = null;
+        Pair<NodoG, Integer> nodoCosto;
+        ArcoG aux;
+        boolean bandera, bandera2 = false;
+        while (!listaOrdenada.isEmpty()) {
+            nodoCosto = listaOrdenada.removeFirst();
+            nodActual = nodoCosto.first;
+            costoActual = nodoCosto.second;
+            if (nodActual == destino) {
+                 //System.out.println(costoActual);
+                bandera2 = true;
+                destinoActual = destino;
+                while (!pila.isEmpty()) {
+                    listRuta.add_head(destinoActual);                  
+                    while (!pila.isEmpty() && pila.peek().second != destinoActual) {
+                        pila.pop();
+                    }
+                    if (!pila.isEmpty()) {
+                        destinoActual = pila.peek().first;
+                    }
+                }
+                break;
+            }
+            aux = nodActual.adyacencia;
+            while (aux != null) {
+                bandera = false;
+                costoActual = costoActual + aux.getPeso();
+                for (int i = 0; i < listacostos.getSize(); i++) {
+                    Pair<NodoG, Integer> tempPa = listacostos.getData();
+                    if (aux.adyacencia == tempPa.first) {
+                        bandera = true;
+                        if (costoActual < tempPa.second) {
+                            tempPa.second = costoActual;
+                            for (Pair<NodoG, Integer> pair : listaOrdenada) {
+                                if (pair.first == aux.adyacencia) {
+                                    pair.second = costoActual;
+                                }
+                            }
+                            java.util.Collections.sort(listaOrdenada);
+                            pila.push(new Pair(nodActual, aux.adyacencia));
+                            costoActual = costoActual - aux.peso;
+                        }
+                    }
+                }
+                if (bandera == false) {
+                    listacostos.add_queue(new Pair(aux.adyacencia, costoActual));
+                    listaOrdenada.addLast(new Pair(aux.adyacencia, costoActual));
+                    java.util.Collections.sort(listaOrdenada);
+                    pila.push(new Pair(nodActual, aux.adyacencia));
+                    costoActual = costoActual - aux.peso;
+                }
+                aux = aux.siguiente;
+            }
+        }
+        if (bandera2 == false) {
+            System.out.println("No es encontro ruta para destino");
+        }
+        return listRuta;
+    }
+
     //funcion que devuelve un true si exite nodo
     public boolean getExistNodo(String nombre) {
         NodoG aux = inicio;
@@ -217,4 +263,22 @@ public class Grafo {
     private NodoG inicio;
     private int size;
 
+//          En el caso de java usamos una clase que representara el pair de C++
+//    class Pair implements Comparable<Node>{
+//        int first, second;
+//        Pair( int d , int p ){                          //constructor
+//            this.first = d;
+//            this.second = p;
+//        }
+//        public int compareTo( Pair other){              //es necesario definir un comparador para el correcto funcionamiento del PriorityQueue
+//            if( second > other.second ) return 1;
+//            if( second == other.second ) return 0;
+//            return -1;
+//        }
+//
+//        @Override
+//        public int compareTo(Node t) {
+//            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//        }
+//    };
 }

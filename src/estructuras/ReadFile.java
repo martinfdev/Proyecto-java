@@ -24,5 +24,10 @@ public class ReadFile {
         }
         return data;
     }
+    
+    public static void writeFile(String cadena){
+        
+    
+    }
 
 }

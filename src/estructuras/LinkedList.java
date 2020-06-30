@@ -1,5 +1,6 @@
 package estructuras;
 
+import java.util.Queue;
 import javax.swing.JOptionPane;
 
 /**
@@ -145,7 +146,12 @@ public class LinkedList<T> {
             System.out.println(isEmpty());
             JOptionPane.showMessageDialog(null, "La lista esta vacia!");
             return null;
-        }else{
+        }
+        if (head == last) {
+            dtmp = head.getData();
+            head = last = null;
+            return dtmp;
+        } else {
             dtmp = head.getData();
             head = head.next;
             size--;
@@ -155,6 +161,26 @@ public class LinkedList<T> {
 
     public Node getHead() {
         return head;
+    }
+
+    //funcion pila pop
+    public T pop() {
+        return del_head();
+    }
+
+    //funcion de la pila push
+    public void push(T data) {
+        insertNode(head, true, data);
+    }
+
+    //puncion pila peek
+    public T peek() {
+        return head.getData();
+    }
+
+    //funcion pila top
+    public T top() {
+        return head.getData();
     }
 
 }

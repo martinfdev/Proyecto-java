@@ -52,7 +52,6 @@ public class Report {
         dotsource.append("\", height=.5];\n");
         dotsource.append(nodes);
         dotsource.append(dir);
-        //  System.out.println(dotsource);
     }
 
     //metodo publico para generar imagen pide como parametro el vector
@@ -84,6 +83,7 @@ public class Report {
         get_dot_grafos(dotsource, inicio);
         graph.add(dotsource.toString());
         graph.add(graph.end_graph());
+      //  System.out.println(graph.getDotSource());
         File f = new File("GrafosRutas.png");
         graph.writeGraphToFile(graph.getGraph(graph.getDotSource(), "png"), f);
         return graph.getPath();
@@ -108,31 +108,33 @@ public class Report {
     }
 
     //metodo que grafica una lista Simple recibe como parametro la lista
-    public static String reporteListaSimple(DoubleLinkedList<Conductor> list, String nombre, boolean string) {
+    public String reporteListaSimple(LinkedList<NodoG> list, String nombre, boolean string) {
         Graphviz graph = new Graphviz();
         graph.addln(graph.start_graph());
         graph.addln("rankdir=LR;");
         graph.addln("node [shape=record, color=blue]; ");
         graph.addln();
-        int contador = 0;
+        int contador = 0, costo = 0;
         String nodos = "", enlaces = "";
-        Node<Conductor> temp = list.getHead();
+        Node<NodoG> temp = list.getHead();
         int size = list.getSize();
         if (temp == null) {
             nodos = "La Lista está vacía ";
         } else {
-            do {
+            while (temp != null) {
                 if (contador < size - 1) {
-                    nodos = nodos + "node" + contador + " [label=\"{DPI: " + temp.getData().getDpi() + " \\nNombre: " + temp.getData().getNombres() + "|<b>}\"];\n";
+                    nodos = nodos + "node" + contador + " [label=\"{Lugar: " + temp.getData().nombre + " \\nTiempo: " + costo + "|<b>}\"];\n";
                     enlaces = enlaces + "node" + contador + ":b:c -> node" + (contador + 1) + ":c [arrowtail=dot, dir=both,tailclip=false];\n";
+                    costo = costo + temp.getData().adyacencia.peso;
                 } else {
-                    nodos = nodos + "node" + contador + " [label=\"{DPI: " + temp.getData().getDpi() + " \\nNombre: " + temp.getData().getNombres() + "|<b>}\"];\n";
+                    nodos = nodos + "node" + contador + " [label=\"{DPI: " + temp.getData().nombre + " \\nTiempo: " + costo + "|<b>}\"];\n";
                     nodos = nodos + "node" + (contador + 1) + " [shape=point];\n";
                     enlaces = enlaces + "node" + contador + ":b:c -> node" + (contador + 1) + ":c [arrowtail=dot, dir=both,tailclip=false];\n";
+                   // costo = costo + temp.getData().adyacencia.peso;
                 }
                 contador++;
                 temp = temp.next;
-            } while (temp != list.getHead());
+            }
         }
         graph.addln(nodos);
         graph.addln(enlaces);
@@ -271,7 +273,7 @@ public class Report {
         graph.addln(finalstring + " -> " + tmpCliente + ";");
         graph.addln(finalstring + " -> " + tmpCond + ";");
         graph.add(graph.end_graph());
-      //  System.out.println(graph.getDotSource());
+        //  System.out.println(graph.getDotSource());
         File out = new File("Rgeneral" + ".png");
         graph.writeGraphToFile(graph.getGraph(graph.getDotSource(), "png"), out);
         return graph.getPath();
