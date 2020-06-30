@@ -243,7 +243,7 @@ public class Grafo {
             }
         }
         if (bandera2 == false) {
-            System.out.println("No es encontro ruta para destino");
+            System.out.println("No se encontro ruta para destino");
         }
         return listRuta;
     }

@@ -83,7 +83,7 @@ public class Report {
         get_dot_grafos(dotsource, inicio);
         graph.add(dotsource.toString());
         graph.add(graph.end_graph());
-      //  System.out.println(graph.getDotSource());
+        //  System.out.println(graph.getDotSource());
         File f = new File("GrafosRutas.png");
         graph.writeGraphToFile(graph.getGraph(graph.getDotSource(), "png"), f);
         return graph.getPath();
@@ -109,11 +109,20 @@ public class Report {
 
     //metodo que grafica una lista Simple recibe como parametro la lista
     public String reporteListaSimple(LinkedList<NodoG> list, String nombre, boolean string) {
+        String g = "";
         Graphviz graph = new Graphviz();
-        graph.addln(graph.start_graph());
-        graph.addln("rankdir=LR;");
-        graph.addln("node [shape=record, color=blue]; ");
-        graph.addln();
+        if (!string) {
+            graph.addln(graph.start_graph());
+            graph.addln("rankdir=LR;");
+            graph.addln("node [shape=record, color=blue]; ");
+            graph.addln();
+        } else {
+            g = "g";
+            graph.addln("subgraph cluster_ListaRuta {");
+            graph.addln("rankdir=LR;");
+            graph.addln("node [shape=record, color=blue, width=0.5, height=0.5]; ");
+            graph.addln("\nlabel = \"Lista de Ruta\";\ncolor=blue;");
+        }
         int contador = 0, costo = 0;
         String nodos = "", enlaces = "";
         Node<NodoG> temp = list.getHead();
@@ -123,14 +132,14 @@ public class Report {
         } else {
             while (temp != null) {
                 if (contador < size - 1) {
-                    nodos = nodos + "node" + contador + " [label=\"{Lugar: " + temp.getData().nombre + " \\nTiempo: " + costo + "|<b>}\"];\n";
-                    enlaces = enlaces + "node" + contador + ":b:c -> node" + (contador + 1) + ":c [arrowtail=dot, dir=both,tailclip=false];\n";
+                    nodos = nodos + "node" + g + contador + " [label=\"{Lugar: " + temp.getData().nombre + " \\nTiempo: " + costo + "|<b>}\"];\n";
+                    enlaces = enlaces + "node" + g + contador + ":b:c -> node" + g + (contador + 1) + ":c [arrowtail=dot, dir=both,tailclip=false];\n";
                     costo = costo + temp.getData().adyacencia.peso;
                 } else {
-                    nodos = nodos + "node" + contador + " [label=\"{DPI: " + temp.getData().nombre + " \\nTiempo: " + costo + "|<b>}\"];\n";
-                    nodos = nodos + "node" + (contador + 1) + " [shape=point];\n";
-                    enlaces = enlaces + "node" + contador + ":b:c -> node" + (contador + 1) + ":c [arrowtail=dot, dir=both,tailclip=false];\n";
-                   // costo = costo + temp.getData().adyacencia.peso;
+                    nodos = nodos + "node" + g + contador + " [label=\"{Lugar: " + temp.getData().nombre + " \\nTiempo: " + costo + "|<b>}\"];\n";
+                    nodos = nodos + "node" + g + (contador + 1) + " [shape=point];\n";
+                    enlaces = enlaces + "node" + g + contador + ":b:c -> node" + g + (contador + 1) + ":c [arrowtail=dot, dir=both,tailclip=false];\n";
+                    // costo = costo + temp.getData().adyacencia.peso;
                 }
                 contador++;
                 temp = temp.next;
@@ -139,6 +148,9 @@ public class Report {
         graph.addln(nodos);
         graph.addln(enlaces);
         graph.addln(graph.end_graph());
+        if (string) {
+            return graph.getDotSource();
+        }
         File out = new File(nombre + ".png");
         graph.writeGraphToFile(graph.getGraph(graph.getDotSource(), "png"), out);
         return graph.getPath();
@@ -248,14 +260,20 @@ public class Report {
 
     //metodo paraga generar la grifica general de las estructuras de que componen el viaje
     public String reporteGeneral(DoubleLinkedList<Block> blockchain, DoubleLinkedList<Conductor> lconductor, BTree tree, NodoHash[] array) {
-        try {
-            dpiClie = blockchain.getEnd().getData().getViaje().getCliente().getDpi();
-            dpiCon = blockchain.getEnd().getData().getViaje().getConductor().getDpi();
-        } catch (Exception e) {
-        }
+        LinkedList<NodoG> lsruta = null;
         Graphviz graph = new Graphviz();
         graph.addln(graph.start_graph());
         graph.addln("rankdir=LR");
+        try {
+            dpiClie = blockchain.getEnd().getData().getViaje().getCliente().getDpi();
+            dpiCon = blockchain.getEnd().getData().getViaje().getConductor().getDpi();
+            lsruta = blockchain.getEnd().getData().getViaje().getRuta();
+        } catch (Exception e) {
+        }
+        //subgrafo de la ruta a tomar
+        if (lsruta != null) {
+            graph.addln(reporteListaSimple(lsruta, "ListaRuta", true));
+        }
         //subrafo block chain
         graph.addln(reporteBlockChain(blockchain, true));
         //subrafo tabla hash
@@ -270,6 +288,7 @@ public class Report {
         graph.addln(graph.end_graph());
         //lista de conductores
         graph.addln(reportListaDobleCircular(lconductor, "", true));
+        graph.addln("nodeg0 -> "+finalstring);
         graph.addln(finalstring + " -> " + tmpCliente + ";");
         graph.addln(finalstring + " -> " + tmpCond + ";");
         graph.add(graph.end_graph());

@@ -1,6 +1,5 @@
 package estructuras;
 
-import java.util.Queue;
 import javax.swing.JOptionPane;
 
 /**
