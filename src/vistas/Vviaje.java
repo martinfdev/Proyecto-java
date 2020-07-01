@@ -429,5 +429,4 @@ public class Vviaje extends javax.swing.JFrame {
     private BTree btree;
     private DoubleLinkedList<Conductor> lconductor;
     private Vprincipal vp;
-
 }
