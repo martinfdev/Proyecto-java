@@ -182,4 +182,71 @@ public class LinkedList<T> {
         return head.getData();
     }
 
+    //eliminar por poscion indicado
+    public T detePosition(int posicion) {
+        if (head != null) {
+            if (posicion > 0 && posicion <= size) {
+                Node ant = null;
+                Node aux = head;
+                int cont = 1;
+                while ((aux != null) && (cont != posicion)) {
+                    cont++;
+                    ant = aux;
+                    aux = aux.next;
+                }
+                if (aux == null) {
+                    return null;
+                }
+                if (ant == null) {
+                    T tmpd = head.getData();
+                    head = head.next;
+                    aux.next = null;
+                    aux = null;
+                    size--;
+                    return tmpd;
+                } else {
+                    T tmpd = (T) aux.getData();
+                    ant.next = aux.next;
+                    aux.next = null;
+                    aux = null;
+                    size--;
+                    return tmpd;
+                }
+            } else {
+                System.out.println("Indice fuera de rango!");
+                return null;
+            }
+        } else {
+            System.out.println("Lista Vacia!");
+        }
+        return null;
+    }
+
+    //Agregar de forma ordenada
+    public void add_sort(T data, int index) {
+        Node<T> nuevo = new Node<>(data, index);
+        if (head == null) {
+            head = nuevo;
+            size++;
+        } else {
+            Node<T> aux = head;
+            Node<T> aux2 = null;
+            while (aux != null && aux.i < index) {
+                aux2 = aux;
+                aux = aux.next;
+            }
+            if (aux2 == null) {
+                nuevo.next = head;
+                head = nuevo;
+                size++;
+            } else if (aux == null) {
+                aux2.next = nuevo;
+                size++;
+            } else {
+                aux2.next = nuevo;
+                nuevo.next = aux;
+                size++;
+            }
+        }
+    }
 }
