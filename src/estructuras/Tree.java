@@ -18,11 +18,11 @@ public class Tree {
         this.raiz = raiz;
     }
 
-    public Tree(char s, Integer frecuencia) {
-        raiz = new NodeT(s, frecuencia);
+    public Tree(String s, Integer frecuencia) {
+        raiz = new NodeT(s , frecuencia);
     }
 
-    public void AgregarHojas(NodeT izq, NodeT der) {
+    public void addLeaf(NodeT izq, NodeT der) {
         raiz.derecha = der;
         raiz.izquierda=izq;
     }

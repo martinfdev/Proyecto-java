@@ -18,21 +18,15 @@ public class Init {
 //        lconductor = new DoubleLinkedList<>();
 //        Vprincipal p = new Vprincipal(blockchain, rutas, tablahash, btree, lconductor);
 //        p.setVisible(true);
-        
- test();
+
+        test();
     }
 
     //metod para probar las estructuras miestras se van implementando
-    private void test() {   
-//      CargaMasiva cr = new CargaMasiva();
-//        Grafo g = new Grafo();
-//        cr.cargarRutas("/home/pedro/Documents/ArchivosPrueba/Rutas.txt", g);
-//        g.caminoMinimo("Madrid", "Zaragoza");
-    Huffman hf = new Huffman();
-    hf.comprimir("Vamos a ver si funciona bien el algoritmo de huffman");
-      
+    private void test() {
+
     }
-    
+
     private static BlockChain blockchain;
     private static Grafo rutas;
     private static HashTable<Cliente> tablahash;

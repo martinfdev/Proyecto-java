@@ -27,7 +27,7 @@ public class Pair<FIRST, SECOND> implements Comparable<Pair<FIRST, SECOND>> {
 //    }
     
     public int compareTo(Pair<FIRST, SECOND> b){
-        return (int) b.second;
+        return  (int)b.second;
     }
 
     // todo move this to a helper class.
