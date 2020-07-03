@@ -249,4 +249,10 @@ public class LinkedList<T> {
             }
         }
     }
+    
+    //vaciar la lista
+    public void clearLinkedList(){
+        head = last = null;
+    }
+    
 }

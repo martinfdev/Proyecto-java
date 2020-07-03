@@ -11,15 +11,15 @@ import vistas.*;
 public class Init {
 
     public Init() {
-//        blockchain = new BlockChain();
-//        btree = new BTree(3); //arbol de grado 5
-//        rutas = new Grafo();
-//        tablahash = new HashTable<>(37); //tabla hash con tamanio inicial del vector igual 37
-//        lconductor = new DoubleLinkedList<>();
-//        Vprincipal p = new Vprincipal(blockchain, rutas, tablahash, btree, lconductor);
-//        p.setVisible(true);
+        blockchain = new BlockChain();
+        btree = new BTree(3); //arbol de grado 5
+        rutas = new Grafo();
+        tablahash = new HashTable<>(37); //tabla hash con tamanio inicial del vector igual 37
+        lconductor = new DoubleLinkedList<>();
+        Vprincipal p = new Vprincipal(blockchain, rutas, tablahash, btree, lconductor);
+        p.setVisible(true);
 
-        test();
+    //    test();
     }
 
     //metod para probar las estructuras miestras se van implementando

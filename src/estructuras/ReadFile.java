@@ -3,7 +3,6 @@ package estructuras;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -12,7 +11,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 
 /**
  *
@@ -36,7 +34,25 @@ public class ReadFile {
         return data;
     }
 
+    //metodo para escrbir el cualquier archivo
+    public static boolean writefile(String path, String text) {
+        BufferedWriter writer = null;
+        try {
+            writer = new BufferedWriter(new FileWriter(path));
+            writer.write(text);
+            writer.close();
+            return true;
+        } catch (IOException ex) {
+            return false;
+        } finally {
+            try {
+                writer.close();
+            } catch (IOException ex) {
+            }
+        }
+    }
     //metodo para generar los archivos comprimidos de Huffman
+
     public static String writeFile(String cadena, String nombre, LinkedList<Ubicacion> tabla) {
         FileWriter w = null;
         try {
@@ -72,9 +88,9 @@ public class ReadFile {
             escritor.write(codificado + "\n");
             escritor.write(falta + "\n");
             Node<Ubicacion> aux = tabla.getHead();
-//            //A partir de nuestra ListaTabla escribimos el caracter seguido de la direccion
+            //A partir de nuestra ListaTabla escribimos el caracter seguido de la direccion
             while (aux != null) {
-                escritor.write(aux.getData().data + aux.getData().ubicacion+"\n");
+                escritor.write(aux.getData().data + aux.getData().ubicacion + "\n");
                 aux = aux.next;
             }
             escritor.close();
@@ -91,7 +107,7 @@ public class ReadFile {
                 Logger.getLogger(ReadFile.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        return "";
+        return null;
     }
 
     //metodo para descomprimir huffman
