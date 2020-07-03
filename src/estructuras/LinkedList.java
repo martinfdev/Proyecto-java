@@ -149,6 +149,7 @@ public class LinkedList<T> {
         if (head == last) {
             dtmp = head.getData();
             head = last = null;
+            size--;
             return dtmp;
         } else {
             dtmp = head.getData();
@@ -253,6 +254,7 @@ public class LinkedList<T> {
     //vaciar la lista
     public void clearLinkedList(){
         head = last = null;
+        size=0;
     }
     
 }

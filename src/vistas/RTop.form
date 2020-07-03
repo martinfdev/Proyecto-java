@@ -205,6 +205,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="TOP CONDUCTORES"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnConductorActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
           <Properties>
@@ -215,6 +218,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="TOP VEHICULOS"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnVehiculosActionPerformed"/>
+          </Events>
         </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane1">
           <AuxValues>
@@ -233,6 +239,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtRutaviaje">
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txtRutaviajeMouseClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnGuardarReporte">
           <Properties>
@@ -254,6 +263,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="BUSCAR"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuscarActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel6">
           <Properties>
