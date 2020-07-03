@@ -99,12 +99,12 @@ public class ReadFile {
             //retornamos el path del archivo creado
             return f.getAbsolutePath();
         } catch (IOException ex) {
-            Logger.getLogger(ReadFile.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(ReadFile.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 w.close();
             } catch (IOException ex) {
-                Logger.getLogger(ReadFile.class.getName()).log(Level.SEVERE, null, ex);
+              //  Logger.getLogger(ReadFile.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return null;
