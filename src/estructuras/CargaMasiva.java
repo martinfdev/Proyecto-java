@@ -24,7 +24,7 @@ public class CargaMasiva {
             return false;
         }
         ReadFile rf = new ReadFile();
-        String[] out = rf.getText(rutaArchivo).replaceAll("\n", "").split(";");
+        String[] out = rf.getText(rutaArchivo).replaceAll("\n", "").replaceAll("\r", "").split(";");
         for (String out1 : out) {
             Cliente ctemp = generarCliente(out1);
             tabla_lientes.insert(ctemp, ctemp.getDpi());
@@ -83,7 +83,7 @@ public class CargaMasiva {
             return false;
         }
         ReadFile rf = new ReadFile();
-        String[] out = rf.getText(rutaArchivo).replaceAll("\n", "").split(";");
+        String[] out = rf.getText(rutaArchivo).replaceAll("\n", "").replaceAll("\r", "").split(";");
         for (String out1 : out) {
             Vehiculo vh = generarVehiculo(out1);
             if (vh != null) {

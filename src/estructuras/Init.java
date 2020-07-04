@@ -12,7 +12,7 @@ public class Init {
 
     public Init() {
         blockchain = new BlockChain();
-        btree = new BTree(5); //arbol de grado 5
+        btree = new BTree(3); //arbol de grado 5
         rutas = new Grafo();
         tablahash = new HashTable<>(37); //tabla hash con tamanio inicial del vector igual 37
         lconductor = new DoubleLinkedList<>();

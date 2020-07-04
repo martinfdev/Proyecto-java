@@ -518,7 +518,7 @@ public class RTop extends javax.swing.JFrame {
         String st = null;
         for (int i = 0; i < ls.getSize(); i++) {
             tmp = ls.getData();
-            txt.append("Bloque No. ").append(i).append(1).append(" Hash: ")
+            txt.append("Bloque No. ").append(i).append(" Hash: ")
                     .append(tmp.getHash()).append(" Fecha: ").append(tmp.getViaje().getFecha_hora())
                     .append(" Placa: ").append(tmp.getViaje().getVehiculo().getPlaca()).append("\n");
         }
